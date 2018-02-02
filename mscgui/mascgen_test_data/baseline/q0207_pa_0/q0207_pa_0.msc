@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<slitConfiguration>
+  <maskNameElement maskName="q0207_pa_0" />
+  <mechanicalMaskConfig>
+    <bar barNumber="1" edgePosition="192.127" target="BX60" />
+    <bar barNumber="2" edgePosition="192.635" target="BX60" />
+    <bar barNumber="3" edgePosition="192.533" target="BX60" />
+    <bar barNumber="4" edgePosition="193.041" target="BX60" />
+    <bar barNumber="5" edgePosition="192.939" target="BX60" />
+    <bar barNumber="6" edgePosition="193.446" target="BX60" />
+    <bar barNumber="7" edgePosition="183.287" target="BX77" />
+    <bar barNumber="8" edgePosition="183.795" target="BX77" />
+    <bar barNumber="9" edgePosition="122.742" target="BX138" />
+    <bar barNumber="10" edgePosition="123.250" target="BX138" />
+    <bar barNumber="11" edgePosition="158.827" target="BX103" />
+    <bar barNumber="12" edgePosition="159.335" target="BX103" />
+    <bar barNumber="13" edgePosition="159.233" target="BX103" />
+    <bar barNumber="14" edgePosition="159.741" target="BX103" />
+    <bar barNumber="15" edgePosition="151.028" target="BX113" />
+    <bar barNumber="16" edgePosition="151.536" target="BX113" />
+    <bar barNumber="17" edgePosition="83.651" target="BX308" />
+    <bar barNumber="18" edgePosition="84.159" target="BX308" />
+    <bar barNumber="19" edgePosition="113.191" target="BX159" />
+    <bar barNumber="20" edgePosition="113.699" target="BX159" />
+    <bar barNumber="21" edgePosition="194.353" target="MD16" />
+    <bar barNumber="22" edgePosition="194.861" target="MD16" />
+    <bar barNumber="23" edgePosition="194.759" target="MD16" />
+    <bar barNumber="24" edgePosition="195.266" target="MD16" />
+    <bar barNumber="25" edgePosition="155.038" target="MD24" />
+    <bar barNumber="26" edgePosition="155.545" target="MD24" />
+    <bar barNumber="27" edgePosition="107.973" target="BX321" />
+    <bar barNumber="28" edgePosition="108.480" target="BX321" />
+    <bar barNumber="29" edgePosition="146.195" target="BX128" />
+    <bar barNumber="30" edgePosition="146.703" target="BX128" />
+    <bar barNumber="31" edgePosition="146.601" target="BX128" />
+    <bar barNumber="32" edgePosition="147.108" target="BX128" />
+    <bar barNumber="33" edgePosition="142.226" target="C20" />
+    <bar barNumber="34" edgePosition="142.734" target="C20" />
+    <bar barNumber="35" edgePosition="142.632" target="C20" />
+    <bar barNumber="36" edgePosition="143.139" target="C20" />
+    <bar barNumber="37" edgePosition="176.838" target="BX102" />
+    <bar barNumber="38" edgePosition="177.345" target="BX102" />
+    <bar barNumber="39" edgePosition="180.183" target="BX100" />
+    <bar barNumber="40" edgePosition="180.691" target="BX100" />
+    <bar barNumber="41" edgePosition="109.932" target="BX317" />
+    <bar barNumber="42" edgePosition="110.440" target="BX317" />
+    <bar barNumber="43" edgePosition="130.412" target="BX157" />
+    <bar barNumber="44" edgePosition="130.920" target="BX157" />
+    <bar barNumber="45" edgePosition="123.420" target="D52" />
+    <bar barNumber="46" edgePosition="123.928" target="D52" />
+    <bar barNumber="47" edgePosition="174.030" target="MD23" />
+    <bar barNumber="48" edgePosition="174.537" target="MD23" />
+    <bar barNumber="49" edgePosition="147.110" target="BX144" />
+    <bar barNumber="50" edgePosition="147.618" target="BX144" />
+    <bar barNumber="51" edgePosition="132.164" target="BX326" />
+    <bar barNumber="52" edgePosition="132.671" target="BX326" />
+    <bar barNumber="53" edgePosition="140.666" target="MD32" />
+    <bar barNumber="54" edgePosition="141.174" target="MD32" />
+    <bar barNumber="55" edgePosition="141.072" target="MD32" />
+    <bar barNumber="56" edgePosition="141.580" target="MD32" />
+    <bar barNumber="57" edgePosition="98.688" target="BX299" />
+    <bar barNumber="58" edgePosition="99.196" target="BX299" />
+    <bar barNumber="59" edgePosition="97.250" target="BX291" />
+    <bar barNumber="60" edgePosition="97.757" target="BX291" />
+    <bar barNumber="61" edgePosition="131.772" target="BX322" />
+    <bar barNumber="62" edgePosition="132.280" target="BX322" />
+    <bar barNumber="63" edgePosition="152.670" target="D16" />
+    <bar barNumber="64" edgePosition="153.178" target="D16" />
+    <bar barNumber="65" edgePosition="141.449" target="D53" />
+    <bar barNumber="66" edgePosition="141.956" target="D53" />
+    <bar barNumber="67" edgePosition="90.182" target="D45" />
+    <bar barNumber="68" edgePosition="90.690" target="D45" />
+    <bar barNumber="69" edgePosition="90.588" target="D45" />
+    <bar barNumber="70" edgePosition="91.095" target="D45" />
+    <bar barNumber="71" edgePosition="111.811" target="D39" />
+    <bar barNumber="72" edgePosition="112.319" target="D39" />
+    <bar barNumber="73" edgePosition="136.421" target="MD69" />
+    <bar barNumber="74" edgePosition="136.929" target="MD69" />
+    <bar barNumber="75" edgePosition="129.638" target="BX312" />
+    <bar barNumber="76" edgePosition="130.145" target="BX312" />
+    <bar barNumber="77" edgePosition="130.043" target="BX312" />
+    <bar barNumber="78" edgePosition="130.551" target="BX312" />
+    <bar barNumber="79" edgePosition="141.798" target="BX320" />
+    <bar barNumber="80" edgePosition="142.305" target="BX320" />
+    <bar barNumber="81" edgePosition="78.333" target="BX255" />
+    <bar barNumber="82" edgePosition="78.841" target="BX255" />
+    <bar barNumber="83" edgePosition="78.738" target="BX255" />
+    <bar barNumber="84" edgePosition="79.246" target="BX255" />
+    <bar barNumber="85" edgePosition="112.156" target="BX287" />
+    <bar barNumber="86" edgePosition="112.664" target="BX287" />
+    <bar barNumber="87" edgePosition="129.839" target="D50" />
+    <bar barNumber="88" edgePosition="130.347" target="D50" />
+    <bar barNumber="89" edgePosition="92.280" target="BX234" />
+    <bar barNumber="90" edgePosition="92.787" target="BX234" />
+    <bar barNumber="91" edgePosition="92.685" target="BX234" />
+    <bar barNumber="92" edgePosition="93.193" target="BX234" />
+  </mechanicalMaskConfig>
+  <mechanicalSlitMaskConfig>
+    <mechanicalSlit slitNumber="0" leftBarNumber="1" rightBarNumber="2" centerPosition="75.817" width="0.700" target="BX60" />
+    <mechanicalSlit slitNumber="1" leftBarNumber="3" rightBarNumber="4" centerPosition="76.376" width="0.700" target="BX60" />
+    <mechanicalSlit slitNumber="2" leftBarNumber="5" rightBarNumber="6" centerPosition="76.936" width="0.700" target="BX60" />
+    <mechanicalSlit slitNumber="3" leftBarNumber="7" rightBarNumber="8" centerPosition="63.626" width="0.700" target="BX77" />
+    <mechanicalSlit slitNumber="4" leftBarNumber="9" rightBarNumber="10" centerPosition="-19.863" width="0.700" target="BX138" />
+    <mechanicalSlit slitNumber="5" leftBarNumber="11" rightBarNumber="12" centerPosition="29.897" width="0.700" target="BX103" />
+    <mechanicalSlit slitNumber="6" leftBarNumber="13" rightBarNumber="14" centerPosition="30.457" width="0.700" target="BX103" />
+    <mechanicalSlit slitNumber="7" leftBarNumber="15" rightBarNumber="16" centerPosition="19.143" width="0.700" target="BX113" />
+    <mechanicalSlit slitNumber="8" leftBarNumber="17" rightBarNumber="18" centerPosition="-73.768" width="0.700" target="BX308" />
+    <mechanicalSlit slitNumber="9" leftBarNumber="19" rightBarNumber="20" centerPosition="-33.033" width="0.700" target="BX159" />
+    <mechanicalSlit slitNumber="10" leftBarNumber="21" rightBarNumber="22" centerPosition="78.886" width="0.700" target="MD16" />
+    <mechanicalSlit slitNumber="11" leftBarNumber="23" rightBarNumber="24" centerPosition="79.445" width="0.700" target="MD16" />
+    <mechanicalSlit slitNumber="12" leftBarNumber="25" rightBarNumber="26" centerPosition="24.672" width="0.700" target="MD24" />
+    <mechanicalSlit slitNumber="13" leftBarNumber="27" rightBarNumber="28" centerPosition="-40.229" width="0.700" target="BX321" />
+    <mechanicalSlit slitNumber="14" leftBarNumber="29" rightBarNumber="30" centerPosition="12.478" width="0.700" target="BX128" />
+    <mechanicalSlit slitNumber="15" leftBarNumber="31" rightBarNumber="32" centerPosition="13.037" width="0.700" target="BX128" />
+    <mechanicalSlit slitNumber="16" leftBarNumber="33" rightBarNumber="34" centerPosition="7.005" width="0.700" target="C20" />
+    <mechanicalSlit slitNumber="17" leftBarNumber="35" rightBarNumber="36" centerPosition="7.564" width="0.700" target="C20" />
+    <mechanicalSlit slitNumber="18" leftBarNumber="37" rightBarNumber="38" centerPosition="54.733" width="0.700" target="BX102" />
+    <mechanicalSlit slitNumber="19" leftBarNumber="39" rightBarNumber="40" centerPosition="59.347" width="0.700" target="BX100" />
+    <mechanicalSlit slitNumber="20" leftBarNumber="41" rightBarNumber="42" centerPosition="-37.527" width="0.700" target="BX317" />
+    <mechanicalSlit slitNumber="21" leftBarNumber="43" rightBarNumber="44" centerPosition="-9.286" width="0.700" target="BX157" />
+    <mechanicalSlit slitNumber="22" leftBarNumber="45" rightBarNumber="46" centerPosition="-18.928" width="0.700" target="D52" />
+    <mechanicalSlit slitNumber="23" leftBarNumber="47" rightBarNumber="48" centerPosition="50.861" width="0.700" target="MD23" />
+    <mechanicalSlit slitNumber="24" leftBarNumber="49" rightBarNumber="50" centerPosition="13.740" width="0.700" target="BX144" />
+    <mechanicalSlit slitNumber="25" leftBarNumber="51" rightBarNumber="52" centerPosition="-6.870" width="0.700" target="BX326" />
+    <mechanicalSlit slitNumber="26" leftBarNumber="53" rightBarNumber="54" centerPosition="4.854" width="0.700" target="MD32" />
+    <mechanicalSlit slitNumber="27" leftBarNumber="55" rightBarNumber="56" centerPosition="5.413" width="0.700" target="MD32" />
+    <mechanicalSlit slitNumber="28" leftBarNumber="57" rightBarNumber="58" centerPosition="-53.032" width="0.700" target="BX299" />
+    <mechanicalSlit slitNumber="29" leftBarNumber="59" rightBarNumber="60" centerPosition="-55.016" width="0.700" target="BX291" />
+    <mechanicalSlit slitNumber="30" leftBarNumber="61" rightBarNumber="62" centerPosition="-7.411" width="0.700" target="BX322" />
+    <mechanicalSlit slitNumber="31" leftBarNumber="63" rightBarNumber="64" centerPosition="21.407" width="0.700" target="D16" />
+    <mechanicalSlit slitNumber="32" leftBarNumber="65" rightBarNumber="66" centerPosition="5.933" width="0.700" target="D53" />
+    <mechanicalSlit slitNumber="33" leftBarNumber="67" rightBarNumber="68" centerPosition="-64.761" width="0.700" target="D45" />
+    <mechanicalSlit slitNumber="34" leftBarNumber="69" rightBarNumber="70" centerPosition="-64.202" width="0.700" target="D45" />
+    <mechanicalSlit slitNumber="35" leftBarNumber="71" rightBarNumber="72" centerPosition="-34.936" width="0.700" target="D39" />
+    <mechanicalSlit slitNumber="36" leftBarNumber="73" rightBarNumber="74" centerPosition="-1.000" width="0.700" target="MD69" />
+    <mechanicalSlit slitNumber="37" leftBarNumber="75" rightBarNumber="76" centerPosition="-10.354" width="0.700" target="BX312" />
+    <mechanicalSlit slitNumber="38" leftBarNumber="77" rightBarNumber="78" centerPosition="-9.795" width="0.700" target="BX312" />
+    <mechanicalSlit slitNumber="39" leftBarNumber="79" rightBarNumber="80" centerPosition="6.414" width="0.700" target="BX320" />
+    <mechanicalSlit slitNumber="40" leftBarNumber="81" rightBarNumber="82" centerPosition="-81.101" width="0.700" target="BX255" />
+    <mechanicalSlit slitNumber="41" leftBarNumber="83" rightBarNumber="84" centerPosition="-80.542" width="0.700" target="BX255" />
+    <mechanicalSlit slitNumber="42" leftBarNumber="85" rightBarNumber="86" centerPosition="-34.460" width="0.700" target="BX287" />
+    <mechanicalSlit slitNumber="43" leftBarNumber="87" rightBarNumber="88" centerPosition="-10.076" width="0.700" target="D50" />
+    <mechanicalSlit slitNumber="44" leftBarNumber="89" rightBarNumber="90" centerPosition="-61.869" width="0.700" target="BX234" />
+    <mechanicalSlit slitNumber="45" leftBarNumber="91" rightBarNumber="92" centerPosition="-61.310" width="0.700" target="BX234" />
+  </mechanicalSlitMaskConfig>
+  <scienceTelescopeConfig maskRaH="2" maskRaM="9" maskRaS="49.911" maskDecDeg="-0" maskDecM="5" maskDecS="16.50" maskPA="-13.50" />
+  <scienceSlitConfig>
+    <slit slitNumber="35" target="BX234" targetRaH="2" targetRaM="9" targetRaS="56.70" targetDecD="-0" targetDecM="7" targetDecS="58.46" targetMag="23.28" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="-5.32" />
+    <slit slitNumber="34" target="D50" targetRaH="2" targetRaM="9" targetRaS="53.13" targetDecD="-0" targetDecM="7" targetDecS="54.88" targetMag="24.62" targetPriority="50.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-1.32" />
+    <slit slitNumber="33" target="BX287" targetRaH="2" targetRaM="9" targetRaS="54.56" targetDecD="-0" targetDecM="7" targetDecS="39.06" targetMag="22.53" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="1.06" />
+    <slit slitNumber="32" target="BX255" targetRaH="2" targetRaM="9" targetRaS="57.39" targetDecD="-0" targetDecM="7" targetDecS="17.59" targetMag="23.29" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="0.03" />
+    <slit slitNumber="31" target="BX320" targetRaH="2" targetRaM="9" targetRaS="51.54" targetDecD="-0" targetDecM="7" targetDecS="25.55" targetMag="23.64" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="0.78" />
+    <slit slitNumber="30" target="BX312" targetRaH="2" targetRaM="9" targetRaS="52.37" targetDecD="-0" targetDecM="7" targetDecS="5.36" targetMag="24.26" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="5.52" />
+    <slit slitNumber="29" target="MD69" targetRaH="2" targetRaM="9" targetRaS="51.67" targetDecD="-0" targetDecM="7" targetDecS="2.53" targetMag="24.59" targetPriority="50.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-1.29" />
+    <slit slitNumber="28" target="D39" targetRaH="2" targetRaM="9" targetRaS="53.73" targetDecD="-0" targetDecM="6" targetDecS="45.45" targetMag="24.07" targetPriority="138.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="0.11" />
+    <slit slitNumber="27" target="D45" targetRaH="2" targetRaM="9" targetRaS="55.44" targetDecD="-0" targetDecM="6" targetDecS="25.22" targetMag="24.32" targetPriority="141.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="1.80" />
+    <slit slitNumber="26" target="D53" targetRaH="2" targetRaM="9" targetRaS="50.72" targetDecD="-0" targetDecM="6" targetDecS="32.80" targetMag="23.79" targetPriority="174.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-1.05" />
+    <slit slitNumber="25" target="D16" targetRaH="2" targetRaM="9" targetRaS="49.59" targetDecD="-0" targetDecM="6" targetDecS="28.42" targetMag="24.55" targetPriority="89.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-0.83" />
+    <slit slitNumber="24" target="BX322" targetRaH="2" targetRaM="9" targetRaS="51.33" targetDecD="-0" targetDecM="6" targetDecS="13.59" targetMag="24.25" targetPriority="148.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-0.50" />
+    <slit slitNumber="23" target="BX291" targetRaH="2" targetRaM="9" targetRaS="54.30" targetDecD="-0" targetDecM="5" targetDecS="55.46" targetMag="24.66" targetPriority="68.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-1.27" />
+    <slit slitNumber="22" target="BX299" targetRaH="2" targetRaM="9" targetRaS="54.02" targetDecD="-0" targetDecM="5" targetDecS="45.73" targetMag="24.55" targetPriority="79.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="1.18" />
+    <slit slitNumber="21" target="MD32" targetRaH="2" targetRaM="9" targetRaS="50.04" targetDecD="-0" targetDecM="5" targetDecS="45.61" targetMag="24.49" targetPriority="248.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="3.24" />
+    <slit slitNumber="20" target="BX326" targetRaH="2" targetRaM="9" targetRaS="50.66" targetDecD="-0" targetDecM="5" targetDecS="33.70" targetMag="24.28" targetPriority="368.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="0.65" />
+    <slit slitNumber="19" target="BX144" targetRaH="2" targetRaM="9" targetRaS="49.21" targetDecD="-0" targetDecM="5" targetDecS="31.68" targetMag="23.78" targetPriority="296.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-0.31" />
+    <slit slitNumber="18" target="MD23" targetRaH="2" targetRaM="9" targetRaS="46.66" targetDecD="-0" targetDecM="5" targetDecS="30.85" targetMag="23.84" targetPriority="152.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="1.43" />
+    <slit slitNumber="17" target="D52" targetRaH="2" targetRaM="9" targetRaS="51.06" targetDecD="-0" targetDecM="5" targetDecS="6.82" targetMag="24.56" targetPriority="1423.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="1.39" />
+    <slit slitNumber="16" target="BX157" targetRaH="2" targetRaM="9" targetRaS="50.34" targetDecD="-0" targetDecM="5" targetDecS="3.94" targetMag="23.85" targetPriority="1616.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-1.29" />
+    <slit slitNumber="15" target="BX317" targetRaH="2" targetRaM="9" targetRaS="52.03" targetDecD="-0" targetDecM="4" targetDecS="48.11" targetMag="24.98" targetPriority="185.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="0.19" />
+    <slit slitNumber="14" target="BX100" targetRaH="2" targetRaM="9" targetRaS="45.64" targetDecD="-0" targetDecM="5" targetDecS="4.23" targetMag="24.79" targetPriority="65.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-1.11" />
+    <slit slitNumber="13" target="BX102" targetRaH="2" targetRaM="9" targetRaS="45.79" targetDecD="-0" targetDecM="4" targetDecS="53.17" targetMag="23.96" targetPriority="133.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="1.13" />
+    <slit slitNumber="12" target="C20" targetRaH="2" targetRaM="9" targetRaS="48.73" targetDecD="-0" targetDecM="4" targetDecS="34.99" targetMag="23.78" targetPriority="347.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="-3.50" />
+    <slit slitNumber="11" target="BX128" targetRaH="2" targetRaM="9" targetRaS="48.12" targetDecD="-0" targetDecM="4" targetDecS="20.15" targetMag="22.60" targetPriority="165.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="-2.93" />
+    <slit slitNumber="10" target="BX321" targetRaH="2" targetRaM="9" targetRaS="51.35" targetDecD="-0" targetDecM="3" targetDecS="54.49" targetMag="22.70" targetPriority="138.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-1.28" />
+    <slit slitNumber="9" target="MD24" targetRaH="2" targetRaM="9" targetRaS="47.02" targetDecD="-0" targetDecM="4" targetDecS="2.01" targetMag="24.28" targetPriority="117.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-1.43" />
+    <slit slitNumber="8" target="MD16" targetRaH="2" targetRaM="9" targetRaS="43.30" targetDecD="-0" targetDecM="4" targetDecS="3.00" targetMag="23.20" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="-1.36" />
+    <slit slitNumber="7" target="BX159" targetRaH="2" targetRaM="9" targetRaS="50.38" targetDecD="-0" targetDecM="3" targetDecS="24.56" targetMag="25.16" targetPriority="25.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-0.77" />
+    <slit slitNumber="6" target="BX308" targetRaH="2" targetRaM="9" targetRaS="52.89" targetDecD="-0" targetDecM="3" targetDecS="6.72" targetMag="23.06" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-0.21" />
+    <slit slitNumber="5" target="BX113" targetRaH="2" targetRaM="9" targetRaS="46.73" targetDecD="-0" targetDecM="3" targetDecS="19.50" targetMag="24.37" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="0.94" />
+    <slit slitNumber="4" target="BX103" targetRaH="2" targetRaM="9" targetRaS="45.86" targetDecD="-0" targetDecM="3" targetDecS="13.28" targetMag="24.10" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="15.03" slitWidth="0.70" targetCenterDistance="-1.97" />
+    <slit slitNumber="3" target="BX138" targetRaH="2" targetRaM="9" targetRaS="48.90" targetDecD="-0" targetDecM="2" targetDecS="48.40" targetMag="24.04" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-0.42" />
+    <slit slitNumber="2" target="BX77" targetRaH="2" targetRaM="9" targetRaS="43.36" targetDecD="-0" targetDecM="2" targetDecS="59.81" targetMag="25.40" targetPriority="25.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="7.03" slitWidth="0.70" targetCenterDistance="-0.11" />
+    <slit slitNumber="1" target="BX60" targetRaH="2" targetRaM="9" targetRaS="42.35" targetDecD="-0" targetDecM="2" targetDecS="53.10" targetMag="24.48" targetPriority="100.00" targetEpoch="2000.00" targetEquinox="2000.00" slitLength="23.03" slitWidth="0.70" targetCenterDistance="-6.06" />
+  </scienceSlitConfig>
+</slitConfiguration>
+

@@ -1,0 +1,16 @@
+<HTML>
+<HEAD>
+<TITLE>
+MASCGEN Overview
+</TITLE>
+</HEAD>
+<BODY>
+
+<H1>MASCGEN</H1>
+
+The MOSFIRE Automatic Slit Configuration Generator (MASCGEN) is a tool used to generate slit configurations based on a prioritized list of astronomical targets and alignment stars, given specified mask parameters and search criteria.  Using the <a href="inputs.html">inputs</a> entered into the Inputs panel (or from a saved parameter file), MASCGEN will dither the pointing over the search parameters and for each pointing, determine the best mask that can be created.  "Best" in this sense is the mask with the highest total priority score, which is the sum of the priorities of the objects that are in the mask.  It then keeps track of the pointing that provides the overall highest priority score, and presets this to the user as the optimized mask and newly formed <a href="../masks/overview.html">mask configuration</a>.
+<p>
+Help for MASCGEN is divided into <a href="../targetLists.html">Target Lists</a>, <a href="inputs.html">Inputs</a>, <a href="outputs.html">Outputs</a>, and <a href="inputs.html">Running MASCGEN</a>.
+
+</BODY>
+</HTML>

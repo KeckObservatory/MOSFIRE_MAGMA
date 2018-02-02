@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mascgenArguments>
+  <maskName>q1700_shift_legal_range</maskName>
+  <inputs targetList="/home/mosdev/kroot/kss/mosfire/gui/mscgui/mascgen_test_data/working/q1700_shift_legal_range/q1700_coords.txt" xrange="2.0" xcenter="-1.0" slitWidthArcsec="0.7" ditherSpace="2.0" minAlignStars="2" starDitherSpace="1.5">
+    <!--NOTE: X Range and X Center units are arcmins, Slit width, Dither Space, and Star Dither Space units are arcsecs-->
+    <center raHours="17" raMinutes="1" raSeconds="0.6" decDegrees="64.0" decMinutes="12.0" decSeconds="9.4" positionAngle="0.0" />
+    <!--NOTE: Step size units are arcsecs for X and Y and degrees for PA-->
+    <steps xSteps="10" xStepsSize="3.0" ySteps="10" yStepsSize="10.0" paSteps="5" paStepsSize="4.5" />
+  </inputs>
+  <outputs autonameOutput="true" mascgenParams="q1700_shift_legal_range.param" targetsInMask="q1700_shift_legal_range.coords" slitList="q1700_shift_legal_range_SlitList.txt" starList="q1700_shift_legal_range_StarList.txt" ds9Regions="q1700_shift_legal_range_SlitRegions.reg">
+    <!--MASCGEN output filenames-->
+    <directory root="/data/users/mosdev/kroot/kss/mosfire/gui/mscgui/mascgen_test_data/working" subdirectory="q1700_shift_legal_range" useMaskNameSubdir="true" />
+    <mscFile science="q1700_shift_legal_range.msc" align="q1700_shift_legal_range_align.msc" />
+    <maskScript science="q1700_shift_legal_range_BarPositions.txt" align="q1700_shift_legal_range_AlignmentBarPositions.txt" />
+    <barPositions science="q1700_shift_legal_range_BarPositions.txt_arcsec" align="q1700_shift_legal_range_AlignmentBarPositions.txt_arcsec" />
+  </outputs>
+</mascgenArguments>
+

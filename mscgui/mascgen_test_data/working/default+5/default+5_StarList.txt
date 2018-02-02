@@ -1,0 +1,1 @@
+default+5       02 09 51.81  -00 05 37.81 2000.00 rotdest=40.00 rotmode=PA

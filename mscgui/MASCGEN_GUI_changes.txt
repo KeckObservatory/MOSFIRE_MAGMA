@@ -1,0 +1,30 @@
+CSUFieldData:
+  - added construtor w/o astro objects (assumed RaDec passed in)
+  - added parameterless constructor
+  - added accessor methods
+  - added objectListFilename
+  - added outputParamFile
+  - made fields private
+
+RaDec:
+  - added toString method
+  - edited parameterless constructor to call constructor with default values for Ra and Dec components
+  - make hours, degrees, and minutes all ints.  fixed accessors and constructors accordingly
+  - made fields private
+
+MaskVisualizationPanel (Mascgen_Visualize_GUI):
+  - extend JPanel instead of JFrame
+  - removed WindowListener
+  - removed JFrame related content
+  - setLayout to borderLayout
+  - added method to set XLimit and XCenter separately from GUISize
+  - set GUISize w/o xlimit and xcenter
+  - get panel size in paint and setGUISize to minimum dimension
+  - separated out construction of GUI to jbInit functions
+  - separated out reading of param file and msc file into separate function that can be called when new slit configuration created
+
+
+MascgenCore (Mascgen_Delta_GUI):
+  - reworked CoPButtonActionListener into standalone function
+  - changed set when adding new start obj to astroObjStartArrayListOrig to add (in run())
+  - use accessors when accessing new privatized RaDec and CSUFieldData fields

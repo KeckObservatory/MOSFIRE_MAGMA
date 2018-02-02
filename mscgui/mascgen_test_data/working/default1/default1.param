@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mascgenArguments>
+  <maskName>default1</maskName>
+  <inputs targetList="/kroot/mosdev/kroot/kss/mosfire/gui/mscgui/mascgen_test_data/working/default/default_orig.coords" xrange="3.0" xcenter="0.0" slitWidthArcsec="0.7" ditherSpace="2.5" minAlignStars="5" starDitherSpace="2.0">
+    <!--NOTE: X Range and X Center units are arcmins, Slit width, Dither Space, and Star Dither Space units are arcsecs-->
+    <center raHours="02" raMinutes="09" raSeconds="51.23" decDegrees="-00" decMinutes="05" decSeconds="24.60" positionAngle="0.0" useCenterOfPriority="true" />
+    <!--NOTE: Step size units are arcsecs for X and Y and degrees for PA-->
+    <steps xSteps="10" xStepsSize="5.0" ySteps="10" yStepsSize="5.0" paSteps="4" paStepsSize="10.0" />
+  </inputs>
+  <!--MASCGEN output directories, filenames and settings-->
+  <outputs autonameOutput="true" mascgenParams="default1.param" mscFile="default1.xml" allTargets="default1_orig.coords" targetsInMask="default1.coords" excessTargets="default1_excess.coords" slitList="default1_SlitList.txt" starList="default1_StarList.txt" ds9Regions="default1_SlitRegions.reg">
+    <directory root="/kroot/mosdev/kroot/kss/mosfire/gui/mscgui/mascgen_test_data/working" subdirectory="default1" useMaskNameSubdir="true" />
+    <maskScript science="default1_BarPositions.csh" align="default1_AlignmentBarPositions.csh" />
+  </outputs>
+</mascgenArguments>
+

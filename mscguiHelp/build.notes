@@ -1,0 +1,4 @@
+#notes for building from command line when not on keck machine.
+
+~/javahelp/jh2.0/javahelp/bin/jhindexer mscguiHelp
+jar cvf ../lib/mscguiHelp.jar images/*.* Map.jhm mscguiHelp.hs mscguiHelp*.xml `find . -name "*.html"`

@@ -1,0 +1,174 @@
+global color=cyan font="helvetica 10 bold" width=2 select=1 highlite=0 edit=0 move=0 delete=1 include=1 fixed=0 source 
+fk5
+panda(255.27619,64.20539,131.17,165.83,1,207.0",207.0",1) #color=magenta 
+line(255.40431,64.21947,255.37565,64.16753) #color=magenta
+panda(255.27619,64.20539,221.17,255.83,1,207.0",207.0",1) #color=magenta 
+line(255.30855,64.14964,255.18919,64.16211) #color=magenta
+panda(255.27619,64.20539,311.17,345.83,1,207.0",207.0",1) #color=magenta 
+line(255.14807,64.19131,255.17673,64.24324) #color=magenta
+panda(255.27619,64.20539,401.17,435.83,1,207.0",207.0",1) #color=magenta 
+line(255.24383,64.26114,255.36318,64.24867) #color=magenta
+box(255.27619,64.20539,180.00000",366.63788",103.500)	# color=red font="helvetica 15 normal" text={}
+# text(255.40136,64.19231)	 textangle=103.50 	 text={PA=103.50} color=cyan font="helvetica 15 bold"
+# text(255.41274,64.19112)	 textangle=103.50 	 text={Center=17h 1m 6.29s  64deg 12' 19.40"} color=cyan font="helvetica 15 bold"
+# text(255.42412,64.18994)	 textangle=103.50 	 text={q1700_pa_90} color=cyan font="helvetica 15 bold"
+circle(255.17486,64.23458,0.5")	# text={}
+# text(255.17412,64.23593) 	 textangle=17.50 	 text={C40}
+box(255.17459,64.23462,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.17533,64.23327) 	 textangle=17.50 	 text={37} color=yellow font="helvetica 10 normal"
+circle(255.18302,64.23906,0.5")	# text={}
+# text(255.18228,64.24041) 	 textangle=17.50 	 text={C42}
+box(255.18232,64.23916,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.18307,64.23781) 	 textangle=17.50 	 text={36} color=yellow font="helvetica 10 normal"
+circle(255.16628,64.20152,0.5")	# text={}
+# text(255.16553,64.20287) 	 textangle=17.50 	 text={BX682}
+box(255.16675,64.20146,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.16750,64.20011) 	 textangle=17.50 	 text={35} color=yellow font="helvetica 10 normal"
+circle(255.18596,64.21588,0.5")	# text={}
+# text(255.18522,64.21723) 	 textangle=17.50 	 text={D47}
+box(255.18280,64.21632,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.18355,64.21497) 	 textangle=17.50 	 text={34} color=yellow font="helvetica 10 normal"
+circle(255.19724,64.22180,0.5")	# text={}
+# text(255.19649,64.22315) 	 textangle=17.50 	 text={BX794}
+box(255.19636,64.22192,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.19710,64.22057) 	 textangle=17.50 	 text={33} color=yellow font="helvetica 10 normal"
+circle(255.20848,64.23053,0.5")	# text={}
+# text(255.20773,64.23188) 	 textangle=17.50 	 text={BX838}
+box(255.20892,64.23047,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.20967,64.22912) 	 textangle=17.50 	 text={32} color=yellow font="helvetica 10 normal"
+circle(255.19521,64.19766,0.5")	# text={}
+# text(255.19446,64.19901) 	 textangle=17.50 	 text={BX661}
+box(255.19600,64.19756,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.19674,64.19621) 	 textangle=17.50 	 text={31} color=yellow font="helvetica 10 normal"
+circle(255.20050,64.19794,0.5")	# text={}
+# text(255.19975,64.19929) 	 textangle=17.50 	 text={BX665}
+box(255.20137,64.19782,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.20212,64.19647) 	 textangle=17.50 	 text={30} color=yellow font="helvetica 10 normal"
+circle(255.22130,64.21787,0.5")	# text={}
+# text(255.22055,64.21922) 	 textangle=17.50 	 text={BX772}
+box(255.22036,64.21800,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.22110,64.21665) 	 textangle=17.50 	 text={29} color=yellow font="helvetica 10 normal"
+circle(255.23365,64.22851,0.5")	# text={}
+# text(255.23291,64.22986) 	 textangle=17.50 	 text={MD132}
+box(255.23398,64.22846,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.23472,64.22711) 	 textangle=17.50 	 text={28} color=yellow font="helvetica 10 normal"
+circle(255.23790,64.21546,0.5")	# text={}
+# text(255.23715,64.21681) 	 textangle=17.50 	 text={BX767}
+box(255.23488,64.21587,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.23562,64.21452) 	 textangle=17.50 	 text={27} color=yellow font="helvetica 10 normal"
+circle(255.23763,64.20654,0.5")	# text={}
+# text(255.23688,64.20789) 	 textangle=17.50 	 text={BX717}
+box(255.23758,64.20654,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.23833,64.20519) 	 textangle=17.50 	 text={26} color=yellow font="helvetica 10 normal"
+circle(255.24825,64.21534,0.5")	# text={}
+# text(255.24751,64.21669) 	 textangle=17.50 	 text={BX759}
+box(255.24771,64.21541,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.24845,64.21406) 	 textangle=17.50 	 text={25} color=yellow font="helvetica 10 normal"
+circle(255.26234,64.23173,0.5")	# text={}
+# text(255.26159,64.23308) 	 textangle=17.50 	 text={BX846}
+box(255.26197,64.23178,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.26272,64.23043) 	 textangle=17.50 	 text={24} color=yellow font="helvetica 10 normal"
+circle(255.26584,64.22868,0.5")	# text={}
+# text(255.26509,64.23003) 	 textangle=17.50 	 text={BX829}
+box(255.26795,64.22839,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.26869,64.22704) 	 textangle=17.50 	 text={23} color=yellow font="helvetica 10 normal"
+circle(255.25627,64.18335,0.5")	# text={}
+# text(255.25553,64.18470) 	 textangle=17.50 	 text={BX588}
+box(255.25376,64.18370,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.25450,64.18234) 	 textangle=17.50 	 text={22} color=yellow font="helvetica 10 normal"
+circle(255.26843,64.19703,0.5")	# text={}
+# text(255.26768,64.19838) 	 textangle=17.50 	 text={MD98}
+box(255.26892,64.19696,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.26967,64.19561) 	 textangle=17.50 	 text={21} color=yellow font="helvetica 10 normal"
+circle(255.27079,64.19073,0.5")	# text={}
+# text(255.27004,64.19208) 	 textangle=17.50 	 text={BX629}
+box(255.27072,64.19074,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.27147,64.18939) 	 textangle=17.50 	 text={20} color=yellow font="helvetica 10 normal"
+circle(255.28466,64.20714,0.5")	# text={}
+# text(255.28392,64.20849) 	 textangle=17.50 	 text={BX720}
+box(255.28498,64.20710,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.28573,64.20574) 	 textangle=17.50 	 text={19} color=yellow font="helvetica 10 normal"
+circle(255.28805,64.20391,0.5")	# text={}
+# text(255.28731,64.20526) 	 textangle=17.50 	 text={BX706}
+box(255.28842,64.20385,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.28917,64.20250) 	 textangle=17.50 	 text={18} color=yellow font="helvetica 10 normal"
+circle(255.29366,64.19358,0.5")	# text={}
+# text(255.29291,64.19493) 	 textangle=17.50 	 text={BX644}
+box(255.29082,64.19396,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.29156,64.19261) 	 textangle=17.50 	 text={17} color=yellow font="helvetica 10 normal"
+circle(255.29804,64.19139,0.5")	# text={}
+# text(255.29729,64.19274) 	 textangle=17.50 	 text={BX625}
+box(255.29730,64.19149,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.29805,64.19014) 	 textangle=17.50 	 text={16} color=yellow font="helvetica 10 normal"
+circle(255.31533,64.21497,0.5")	# text={}
+# text(255.31458,64.21632) 	 textangle=17.50 	 text={M25}
+box(255.31547,64.21495,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.31622,64.21360) 	 textangle=17.50 	 text={15} color=yellow font="helvetica 10 normal"
+circle(255.31744,64.21013,0.5")	# text={}
+# text(255.31670,64.21148) 	 textangle=17.50 	 text={BX738}
+box(255.31800,64.21005,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.31875,64.20870) 	 textangle=17.50 	 text={14} color=yellow font="helvetica 10 normal"
+circle(255.31057,64.18703,0.5")	# text={}
+# text(255.30983,64.18838) 	 textangle=17.50 	 text={BX607}
+box(255.31054,64.18704,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.31129,64.18568) 	 textangle=17.50 	 text={13} color=yellow font="helvetica 10 normal"
+circle(255.32121,64.19658,0.5")	# text={}
+# text(255.32046,64.19793) 	 textangle=17.50 	 text={BX659}
+box(255.32348,64.19626,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.32423,64.19491) 	 textangle=17.50 	 text={12} color=yellow font="helvetica 10 normal"
+circle(255.33798,64.20803,0.5")	# text={}
+# text(255.33724,64.20938) 	 textangle=17.50 	 text={BX727}
+box(255.33783,64.20805,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.33858,64.20670) 	 textangle=17.50 	 text={11} color=yellow font="helvetica 10 normal"
+circle(255.34237,64.20529,0.5")	# text={}
+# text(255.34163,64.20664) 	 textangle=17.50 	 text={BX710}
+box(255.34160,64.20540,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.34235,64.20405) 	 textangle=17.50 	 text={10} color=yellow font="helvetica 10 normal"
+circle(255.34344,64.19778,0.5")	# text={}
+# text(255.34269,64.19913) 	 textangle=17.50 	 text={BX705}
+box(255.34269,64.19788,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.34343,64.19653) 	 textangle=17.50 	 text={9} color=yellow font="helvetica 10 normal"
+circle(255.35182,64.20530,0.5")	# text={}
+# text(255.35108,64.20665) 	 textangle=17.50 	 text={BX708}
+box(255.35200,64.20528,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.35275,64.20393) 	 textangle=17.50 	 text={8} color=yellow font="helvetica 10 normal"
+circle(255.34904,64.18933,0.5")	# text={}
+# text(255.34829,64.19068) 	 textangle=17.50 	 text={C31}
+box(255.34848,64.18941,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.34922,64.18806) 	 textangle=17.50 	 text={7} color=yellow font="helvetica 10 normal"
+circle(255.35963,64.19452,0.5")	# text={}
+# text(255.35888,64.19587) 	 textangle=17.50 	 text={D38}
+box(255.35918,64.19458,0.70000",14.97826",107.500)	 #color=yellow
+# text(255.35992,64.19323) 	 textangle=17.50 	 text={6} color=yellow font="helvetica 10 normal"
+circle(255.36594,64.19311,0.5")	# text={}
+# text(255.36519,64.19446) 	 textangle=17.50 	 text={BX639}
+box(255.36620,64.19308,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.36694,64.19173) 	 textangle=17.50 	 text={5} color=yellow font="helvetica 10 normal"
+circle(255.36673,64.18562,0.5")	# text={}
+# text(255.36598,64.18697) 	 textangle=17.50 	 text={BX606}
+box(255.36727,64.18554,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.36802,64.18419) 	 textangle=17.50 	 text={4} color=yellow font="helvetica 10 normal"
+circle(255.37010,64.17957,0.5")	# text={}
+# text(255.36936,64.18092) 	 textangle=17.50 	 text={BX568}
+box(255.36927,64.17968,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.37002,64.17833) 	 textangle=17.50 	 text={3} color=yellow font="helvetica 10 normal"
+circle(255.39450,64.21454,0.5")	# text={}
+# text(255.39375,64.21589) 	 textangle=17.50 	 text={MD123}
+box(255.39379,64.21463,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.39453,64.21328) 	 textangle=17.50 	 text={2} color=yellow font="helvetica 10 normal"
+circle(255.38164,64.18226,0.5")	# text={}
+# text(255.38089,64.18361) 	 textangle=17.50 	 text={BX583}
+box(255.38120,64.18232,0.70000",7.00787",107.500)	 #color=yellow
+# text(255.38194,64.18097) 	 textangle=17.50 	 text={1} color=yellow font="helvetica 10 normal"
+circle(255.18775,64.17313,0.5")	# text={}
+# text(255.18743,64.17448) 	 textangle=17.50 	 text={S77} color=red
+box(255.18775,64.17313,4.00000",7.00787",107.500)	 #color=red
+circle(255.27743,64.24970,0.5")	# text={}
+# text(255.27711,64.25105) 	 textangle=17.50 	 text={S148} color=red
+box(255.27711,64.24974,4.00000",7.00787",107.500)	 #color=red
+circle(255.28178,64.20187,0.5")	# text={}
+# text(255.28145,64.20322) 	 textangle=17.50 	 text={S103} color=red
+box(255.28207,64.20183,4.00000",7.00787",107.500)	 #color=red
+circle(255.38918,64.22558,0.5")	# text={}
+# text(255.38885,64.22693) 	 textangle=17.50 	 text={S123} color=red
+box(255.38935,64.22555,4.00000",7.00787",107.500)	 #color=red

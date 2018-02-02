@@ -1,0 +1,1 @@
+q0207_pa_0_longslit  2 9 49.91  -0 5 16.50 2000.00 rotdest=-13.50 rotmode=PA

@@ -1,0 +1,15 @@
+<HTML>
+<HEAD>
+<TITLE>
+Mask Configurations
+</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Mask Configurations</H1>
+
+Mask configurations are the fundamental unit of mask creation.  Included in a mask configuration are not only the positions of the bars, but the astronomical targets in each slit, the field center location and position angle of the telescope when observing the mask, and the information used to create the mask.  Mask configurations actually include two masks: an alignment mask and a science mask.  The science mask is the mask used for spectrographic observations on a set of astronomical targets.  The alignment mask is the mask used for fine alignment of the telescope on the field, taken in imaging mode just prior to the science mask deployment.  It is similar to the science mask, except a small number of slits (typically 4) have been redeployed as 4 arcsec boxes to enclose one of a set of specified "alignment stars" within each box.
+<p>
+The primary file format for saving and retrieving mask configuration is the MOSFIRE Slit Configuration, or <a href="msc.html">MSC</a>, file.  However, a number of other useful data products can be created from a mask configuration.  These are detailed on the <a href=../"dataProducts.html">Data Products</a> page. 
+</BODY>
+</HTML>

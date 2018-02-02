@@ -1,0 +1,1 @@
+This run has an error. The slits near the top of the mask should not be allowed to fall outside of the circle. There must be some conflict between the way we lest for legal range and also within the field of view of the telescope/baffle of the instrument. 

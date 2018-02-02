@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>
+Target Lists
+</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Target Lists</H1>
+
+Target lists are a list of astronomical targets and alignment stars to be placed in a <a href="masks/overview.html">MOSFIRE mask confinguration</a>.  <a href="mascgen/overview.html">MASCGEN</a> uses this list to determine the "best" configuration out of the targets given the constraints specified in the other <a href="mascgen/inputs.html">inputs</a>.  "Best" in this case is the highest sum of priority scores of the targets in the mask.  
+
+Each line in a target list must have the following format:
+
+<dl>
+<dd>- Target Name (cannot contain spaces)</dd>
+<dd>- Priority (set to -1 for alignment stars)</dd>
+<dd>- Magnitude/Brightness</dd>
+<dd>- Right Ascension (*see below for format)</dd>
+<dd>- Declination (*see below for format)</dd>
+<dd>- Epoch</dd> 
+<dd>- Equinox</dd>
+</dl>
+
+Items are delimited using whitespace.  Any additional data on the line is ignored.  This makes the target list format consistent with other Keck instruments (e.g. DEIMOS, LRIS). 
+<p>
+Blank lines and lines staring with the pound (#) symbol are ignored.  
+<p>
+* Right Ascension and Declination can have the following formats (Note: fields with a period (.) in it indicate floating point numbers.  There must be at least one digit to the right of the decimal point to parse correctly):
+<p>
+<table border="1">
+<tr>
+<th>Right Ascension</th>
+<th>Declination</th>
+</tr>
+<tr>
+<td>hh mm ss.s</td>
+<td>dd mm ss.s</td>
+</tr>
+<tr>
+<td>hh:mm:ss.s</td>
+<td>dd:mm:ss.s</td>
+</tr>
+<tr>
+<td>hh mm.m</td>
+<td>dd mm.m</td>
+</tr>
+<tr>
+<td>hh:mm.m</td>
+<td>dd:mm.s</td>
+</tr>
+<tr>
+<td>hh.h</td>
+<td>dd.d</td>
+</tr>
+</table>
+
+
+
+</BODY>
+</HTML>

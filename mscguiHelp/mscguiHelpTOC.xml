@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 2.0//EN"
+         "../dtd/toc_2_0.dtd">
+<toc version="2.0">
+<tocitem text="MAGMA: The MOSFIRE Slit Configuration Tool" target="mscgui.helpintro" >
+
+   <tocitem text="What is MAGMA?" target="mscgui.whatis" />
+
+   <tocitem text="MAGMA Layout" target="mscgui.layout" />
+
+   <tocitem text="Getting Started" target="mscgui.started" />
+
+
+   <tocitem text="Mask Configurations" target="msc.overview" expand="true" >
+     <tocitem text="Managing Mask Configurations" target="msc.managing" />
+     <tocitem text="Modifying Mask Configurations" target="msc.modifying" />
+     <tocitem text="MSC Files" target="msc.msc" />
+     <tocitem text="Other Data Products" target="data.products" />
+   </tocitem>
+
+
+   <tocitem text="MASCGEN" target="mascgen.overview" expand="true" >
+     <tocitem text="Target Lists" target="data.targetlist" />
+     <tocitem text="Inputs" target="mascgen.inputs" />
+     <tocitem text="Outputs" target="mascgen.outputs" />
+     <tocitem text="Running" target="mascgen.running" />
+   </tocitem>
+
+
+
+<!--
+   <tocitem text="" target="" />
+-->
+</tocitem>
+</toc>

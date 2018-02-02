@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<TITLE>
+MAGMA Data Products
+</TITLE>
+</HEAD>
+<BODY>
+
+<H1>MAGMA Data Products</H1>
+
+Along with <a href="masks/msc.html">MSC files</a>, MAGMA can produce a number of useful files associated with the mask configuration.  These data product are listed below.
+
+<h3>Slit List</h3>
+
+The Slit List is a list of the slits from a scientific point of view, as opposed to a mechanical point of view.  There is one entry per astronomical object, so that a slit made up of multiple mechanical rows is represented as a single slit with a slit length given.  Positions are given in arcseconds from the center of the slit to the center of the field of view, and the distance of the target from the center of the slit is listed.  The target information is also listed for each slit.
+
+<dl>
+<dt>The slit list columns are:</dt>
+<dd>-Slit Number</dd>
+<dd>-Slit RA Hours</dd>
+<dd>-Slit RA Minutes</dd>
+<dd>-Slit RA Seconds</dd>
+<dd>-Slit Dec Degrees</dd>
+<dd>-Slit Dec Minutes</dd>
+<dd>-Slit Dec Seconds</dd>
+<dd>-Slit Width (arcsec)</dd>
+<dd>-Slit Length (arcsec)</dd>
+<dd>-Target Name</dd>
+<dd>-Target Priority</dd>
+<dd>-Distance of target from slit center (arcsec)</dd>
+<dd>-Target RA Hours</dd>
+<dd>-Target RA Minutes</dd>
+<dd>-Target RA Seconds</dd>
+<dd>-Target Dec Degrees</dd>
+<dd>-Target Dec Minutes</dd>
+<dd>-Target Dec Seconds</dd>
+</dl>
+
+<h3>Mask Target List</h3>
+
+The Mask Target List is a list of the targets that appear on the mask.  The format is identical to the <a href="targetLists.html">target list</a> file used as <a href="mascgen/input.html">input</a> to MASCGEN.
+
+<h3>Science Mask Script</h3>
+
+The Science Mask Script is a shell script that can be used to set up the science mask in the instrument.  It consists of a series of KTL "modify" calls, which are used to specify the bar positions and mask name in the CSU (Configurable Slit Unit) server.
+
+<h3>Alignment Mask Script</h3>
+
+The Alignment Mask Script is the same as the Science Mask Script, but used to set up the alignment mask in the instrument.
+
+<h3>DS9 Regions File</h3>
+
+The DS9 Regions File is a file that can be used to overlay the science slits and alignment boxes over a FITS image of the field, opened in DS9, provided the FITS image has proper WCS information.  More on DS9 regions files can be found in the <a href="http://hea-www.harvard.edu/RD/ds9/ref/region.html">DS9 reference manual</a>&nbsp;<object CLASSID="java:com.sun.java.help.impl.JHSecondaryViewer">
+  <param name="content" value="http://hea-www.harvard.edu/RD/ds9/ref/region.html">
+  <param name="viewerStyle" value="javax.help.SecondaryWindow">
+  <param name="viewerActivator" value="javax.help.LinkLabel">
+  <param name="iconByName" value="../images/new_window_icon.gif">
+  <param name="viewerName" value="external">
+  <param name="viewerLocation" value="10,10">
+  <param name="viewerSize" value="1024,600">
+</object>. 
+
+<h3>Keck Star List</h3>
+
+The Keck Star List is a listing of the field center and position angle in the proper format to be added to a Keck Star List for observing at W.M. Keck Observatory.
+
+<h3>MASCGEN Parameters File</h3>
+
+A copy of the MASCGEN parameters used to create the original mask is written to disk, so that it can be loaded again at a later time, if it is desired to rerun in MASCGEN.
+
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE index
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/index_1_0.dtd">
+
+<index version="1.0">
+
+
+  <indexitem text="Adjusting Slit Width" target="msc.modifying" />
+  <indexitem text="Alignment Mask Script" target="data.products" />
+  <indexitem text="Aligning Slits" target="msc.modifying" />
+  <indexitem text="Alignment Stars" target="mascgen.inputs" />
+  <indexitem text="Center of Priority" target="mascgen.inputs" />
+  <indexitem text="Center PA" target="mascgen.inputs" />
+  <indexitem text="Center RA/Dec" target="mascgen.inputs" />
+  <indexitem text="Copying Mask Configurations" target="msc.managing" />
+  <indexitem text="Data products" target="data.products" >
+    <indexitem text="Alignment Mask Script" target="data.products" />
+    <indexitem text="DS9 regions" target="data.products" />
+    <indexitem text="FITS overlay" target="data.products" />
+    <indexitem text="Keck star list" target="data.products" />
+    <indexitem text="MASCGEN Parameters File" target="data.products" />
+    <indexitem text="Mask Target List" target="data.products" />
+    <indexitem text="Science Mask Script" target="data.products" />
+    <indexitem text="Slit List" target="data.products" />
+  </indexitem>
+  <indexitem text="Dither Space" target="mascgen.inputs" />
+  <indexitem text="DS9 regions" target="data.products" />
+  <indexitem text="FITS overlay" target="data.products" />
+  <indexitem text="Keck star list" target="data.products" />
+  <indexitem text="MASCGEN" target="mascgen.overview" />
+  <indexitem text="MASCGEN Panel" target="mscgui.layout" />
+  <indexitem text="MASCGEN Inputs" target="mascgen.inputs" />
+  <indexitem text="MASCGEN Outputs" target="mascgen.outputs" />
+  <indexitem text="MASCGEN Parameters File" target="data.products" />
+  <indexitem text="Mask Configurations" target="msc.overview" />
+  <indexitem text="Mask Configurations Panel" target="mscgui.layout" />
+  <indexitem text="Mask Target List" target="data.products" />
+  <indexitem text="Mask Visualization Panel" target="mscgui.layout" />
+  <indexitem text="Menu Bar" target="mscgui.layout" />
+  <indexitem text="MSC Files" target="msc.msc" />
+  <indexitem text="Opening Mask Configurations" target="msc.managing" />
+  <indexitem text="PA Steps" target="mascgen.inputs" />
+  <indexitem text="PA Step Size" target="mascgen.inputs" />
+  <indexitem text="Renaming Mask Configurations" target="msc.modifying" />
+  <indexitem text="Running MASCGEN" target="mascgen.running" />
+  <indexitem text="Saving Mask Configurations" target="msc.managing" />
+  <indexitem text="Science Mask Script" target="data.products" />
+  <indexitem text="Slit List" target="data.products" />
+  <indexitem text="Slit Table" target="mscgui.layout" />
+  <indexitem text="Slit Width" target="mascgen.inputs" />
+  <indexitem text="Slit Width Adjustment Panel" target="mscgui.layout" />
+  <indexitem text="Star Edge Buffer" target="mascgen.inputs" />
+  <indexitem text="Target List Table" target="mscgui.layout" />
+  <indexitem text="Target Lists" target="data.targetlist" />
+  <indexitem text="X Center" target="mascgen.inputs" />
+  <indexitem text="X Range" target="mascgen.inputs" />
+  <indexitem text="X Steps" target="mascgen.inputs" />
+  <indexitem text="X Step Size" target="mascgen.inputs" />
+  <indexitem text="Y Steps" target="mascgen.inputs" />
+  <indexitem text="Y Step Size" target="mascgen.inputs" />
+
+<!--
+  <indexitem text="" target="" />
+-->
+</index>
+

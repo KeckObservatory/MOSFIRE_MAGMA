@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mascgenArguments>
+  <maskName>q0207_pa_0</maskName>
+  <inputs targetList="/home/mosdev/kroot/kss/mosfire/gui/mscgui/mascgen_test_data/working/q0207_pa_0/q0207_1.coords" xrange="3.0" xcenter="0.0" slitWidthArcsec="0.7" ditherSpace="2.0" minAlignStars="2" starDitherSpace="1.5">
+    <!--NOTE: X Range and X Center units are arcmins, Slit width, Dither Space, and Star Dither Space units are arcsecs-->
+    <center raHours="2" raMinutes="9" raSeconds="50.71" decDegrees="-0.0" decMinutes="5.0" decSeconds="6.5" positionAngle="0.0" />
+    <!--NOTE: Step size units are arcsecs for X and Y and degrees for PA-->
+    <steps xSteps="10" xStepsSize="3.0" ySteps="10" yStepsSize="10.0" paSteps="5" paStepsSize="4.5" />
+  </inputs>
+  <outputs autonameOutput="true" mascgenParams="q0207_pa_0.param" targetsInMask="q0207_pa_0.coords" slitList="q0207_pa_0_SlitList.txt" starList="q0207_pa_0_StarList.txt" ds9Regions="q0207_pa_0_SlitRegions.reg">
+    <!--MASCGEN output filenames-->
+    <directory root="/data/users/mosdev/kroot/kss/mosfire/gui/mscgui/mascgen_test_data/working" subdirectory="q0207_pa_0" useMaskNameSubdir="true" />
+    <mscFile science="q0207_pa_0.msc" align="q0207_pa_0_align.msc" />
+    <maskScript science="q0207_pa_0_BarPositions.txt" align="q0207_pa_0_AlignmentBarPositions.txt" />
+    <barPositions science="q0207_pa_0_BarPositions.txt_arcsec" align="q0207_pa_0_AlignmentBarPositions.txt_arcsec" />
+  </outputs>
+</mascgenArguments>
+

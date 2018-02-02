@@ -1,0 +1,1 @@
+q1700_shift_legal_range  17 0 50.78  64 11 59.40 2000.00 rotdest=-18.00 rotmode=PA

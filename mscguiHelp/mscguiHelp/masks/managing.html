@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE>
+Managing Mask Configurations
+</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Managing Mask Configurations</H1>
+
+New mask configurations are created using <a href="../mascgen/overview.html">
+MASCGEN</a>.  Once created, they can be saved as <a href="../msc.html">MSC files</a> for storage to disk, and later reopened.  They may also be <a href="modifying.html">modified</a> in a few ways.  Mask configurations can also be copied, so that modifications can be made while preserving the original mask.
+<p>
+When a mask configuration is added to the workspace, either by creating a new mask using MASCGEN, opening an existing configuration from disk, or copying an opened configuration, it is listed in the Mask Configuration Control Panel in the upper right portion of MAGMA.
+<p>
+<img src="../../images/20110809_mscgui_configs.png" >
+<p>
+The mask name is shown, along with the status of the mask.  Clicking on a mask selects it, and shows the mask in the mask visualization panel. The name of the selected mask can be changed in this panel by double-clicking in the name field of a selected mask. 
+<p>
+The control panel contains the available controls for the selected mask:
+<ul>
+<li>Open: open a new configuration from a saved MSC file.</li>
+<li>Copy: copy the selected configuration.</li>
+<li>Close: close the selected configuration. Confirmation is required when closing an unsaved configuration.</li>
+<li>Save MSC: save the current configuration to an MSC file.</li>
+<li>Save All: save the current configuration to an MSC file, and also generate associated data products (see the <a href="../dataProducts.html">Data Products</a> page for more information).  When this option is selected, a dialog is presented showing the default directory and filenames for the data products produced.<br>
+<br>
+<img src="../../images/20110809_mscgui_tutorial_saveall.png" >
+<br>
+  The defaults are specified in the <a href="../mascgen/outputs.html">Outputs</a> tab of MASCGEN when the original mask was created.  This dialog allows the user to change these defaults before saving.</li>
+</ul>
+<p>
+These controls are also available under the File menu option.
+
+</BODY>
+</HTML>

@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE>
+MASCGEN Inputs
+</TITLE>
+</HEAD>
+<BODY>
+
+<H1>MASCGEN Inputs</H1>
+
+Mask Configurations must be given a unique name.  Enter this into the box near the top of the MASCGEN panel.  It can be changed later in the Mask Configurations Panel (see <a href="../masks/managing.html">Managing Mask Configurations</a>.
+<p>
+The rest of the MASCGEN inputs are specified on the Inputs tab (see image below).
+<p>
+In addition to the <a href="../targetLists.html">target list</a>, the following arguments are used by MASCGEN:
+
+<ul>
+<li><b>X Range:</b> the width of the region in arcminutes, centered around the center of the CSU and offset by X Center argument below, that slits are allowed to be in.  This is to prevent slits from falling near the edge of the field of view, where their spectral coverage will be limited.</li>
+<li><b>X Center:</b>  the offset from the center of the CSU field of view the region in which slits may be placed is centered on.  This is used to shift the entire set of slits in order to shift the spectra on the detector, if, for example, a specific wavelength is desired.</li>
+<li><b>Slit Width:</b> the width of all slits in arcseconds.</li>
+<li><b>Dither Space:</b> the minimum distance from the top and bottom of a slit a object must be in order to be considered valid.  This is to allow for dithering on the slit.</li>
+<li><b>Alignment Stars:</b> the number of alignment stars within the MOSFIRE focal plane for the same pointing of the mask to be considered valid.</li>
+<li><b>Star Edge Buffer:</b> the minimum distance in arcseconds that an alignment star can be from the edge of the alignment box.</li>
+<li><b>Use Center of Priority:</b> if this is checked, the center of priority, calculated from the list of targets, will be used as the starting point for dithering.  If checked, the Center Ra/Dec field below is ignored.</li>
+<li><b>Center Ra/Dec:</b> the starting center point for dithering.</li>
+<li><b>X Steps:</b> the number of steps in X on both sides of the center point to dither.  X here means in the same direction as spectra lie on the detector, which is also the same direction as the bars move.</li>
+<li><b>X Step Size:</b> the size of the X steps in arcseconds.</li>
+<li><b>Y Steps:</b> the number of steps in Y on both sides of the center point to dither.  Y is perpendicular to the direction the spectra lie on the detector, and the direction the bars move.</li>
+<li><b>Y Step Size:</b> the size of the Y steps in arcseconds.</li>
+<li><b>Center PA:</b> the starting position angle of the mask.</li>
+<li><b>PA Steps:</b> the number of increments on each side of the starting PA to search.</li>
+<li><b>PA Step Size:</b> the size of the PA steps in degrees.</li>
+<p>
+<img src="../../images/20110809_mscgui_mascgen_inputs.png">
+</BODY>
+</HTML>

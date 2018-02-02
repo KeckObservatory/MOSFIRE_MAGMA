@@ -1,0 +1,55 @@
+2010-11-23: 
+
+confirmed accuracy of Gwen's test results using MASCGEN version 2010-09-28.
+
+2010-11-24: 
+
+renamed jason_test/ to baseline/, and working_test/ to working/.
+
+changed extensions of .xml files to .msc in baseline dir.
+
+q0207_pa_0: same
+q0207_pa_35: same
+q0207_pa_75: same
+q1442_pa_10: same
+q1442_pa_90: same
+q1700_pa_0: same
+q1700_pa_45: same
+q1700_pa_90: same
+q1700_shift_legal_range: align, regions, alignmentBarPositions, _arcsec, differs
+
+had to revert DEC deg (and min) back to doubles, because java allows
+the concept of -0 for floating points, but not integers.
+
+2010-12-09: 
+
+with kristin's help, found that if you ran a mask after previously running the mask, the new one would simply use the alignment star locations as the previous one.  this explains why shift_legal_range was different.  it's not if you run it as the first mask after starting the program fresh.  
+
+the problem is that AlignmentSet uses static variables for the winningStarSet.  this works ok for the first run, but it is not cleared when starting the next set, so previous results could still be the best star set.  static varaibles are definitely not the way to go here.
+
+the same problem is found in MASCGEN.
+
+found some code online that can replace gwen's NChooseK class.  CombinationGenerator code in irlabUtil.  after implementing and reworking, removed AlignmentSet class as well, and moved pairwise distance calcuation directly into findBestAlignmentSet function.
+
+added a splitpane for object list on bottom.
+
+changed insets from 5,5,5,5 to 2,2,2,2, using a named variable instead of anonymous references
+
+2010-12-10:
+
+committed version to cvs
+
+2010-12-13:
+
+findBestAlignmentStars modifies the slience slit array passed in and returns the modified version.  we really it to create a new array, so we have to copy it.  we do this by cloning each slit.  made Slit implement clone, and then overrode clone method to call super.clone.  See item 10 in bloch.
+
+stars weren't coming up a different color, but were the color of the science slits.  even though they were drawn orange first, when drawing a science slit black, it changed the color of the star slit because they were using the same generalpath object.  use new objects now.  could just have two, but currently am using a new path for every slit.
+
+had an issue with copying arrays.  needed to do deep copies slit arrays.
+
+now works like mascgen. 
+
+2010-12-14:
+
+committed to cvs 
+

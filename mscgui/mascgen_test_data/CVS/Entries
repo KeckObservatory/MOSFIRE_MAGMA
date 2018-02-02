@@ -1,0 +1,13 @@
+D/baseline////
+D/newbase////
+D/working////
+/compareAllMascgenResults.bash/1.1/Sun May 22 17:53:36 2011//TSHIP_20120201
+/compareMascgenResults.bash/1.1/Sun May 22 17:53:24 2011//TSHIP_20120201
+/copyAllWorkingResultsToNewbase.bash/1.1/Thu Jun 16 17:58:28 2011//TSHIP_20120201
+/copyWorkingResultsToNewbase.bash/1.1/Thu Jun 16 17:58:52 2011//TSHIP_20120201
+/mascgenRegressionTest.notes/1.1/Sun May 22 18:08:34 2011//TSHIP_20120201
+/oldCompareMascgenResults.bash/1.1/Sun May 22 18:04:59 2011//TSHIP_20120201
+/q0207Rs.fits/1.1/Sun May 22 18:06:43 2011//TSHIP_20120201
+/q1700Rs.fits/1.1/Sun May 22 18:06:46 2011//TSHIP_20120201
+/renameMascgenResults.bash/1.1/Sun May 22 17:54:09 2011//TSHIP_20120201
+/resetMascgenResults.bash/1.1/Sun May 22 17:53:54 2011//TSHIP_20120201
