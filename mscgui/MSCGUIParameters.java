@@ -17,25 +17,39 @@ import edu.ucla.astro.irlab.util.ColorUtilities;
  * <p>Copyright: Copyright (c) 2006</p>
  * <p>Company: UCLA Infrared Laboratory</p>
  * @author Jason L. Weiss
- * @version 1.0
+ * @version 1.1
+ * Modification History:
+ * 2014feb11 MK  Updated with new exposure times for dome lamps.
+
  */
 
 public class MSCGUIParameters {
+
+	public static final String NOD_AMP_FIELD_TOOLTIP = "<html>"+
+		"Enter this value in the MOSFIRE Exposure GUI for the nod amplitude<br>"+
+		"parameter when configuring a nod dither pattern to execute at the<br>"+
+		"telescope.  The nod amplitude is the +/- offset from the nominal<br>" +
+		"position, and an amplitude of half of the dither space will ensure<br>" +
+		"all objects will stay in their slits for all nod positions.</html>";
+				
 
 	//. this class follows the singleton design pattern (gamma, et al, Design Patterns)
 	//. only one instance of this class is allowed.
 	private static MSCGUIParameters singleton = null;
 
+	public static String MSC_VERSION="v1.3";  /* updated 11 April 2013 */
+	public static boolean SUPPRESS_VERSION_MISMATCH_WARNINGS = true;
+	
 	public static File MOSFIRE_PROPERTIES_FILENAME = new File("/home/mosdev/kroot/kss/mosfire/gui/data/mscguiProperties.xml");
 	public static File MOSFIRE_PARAMETERS_FILE = new File("");
 	public static File LOG4J_CONFIG_FILENAME = new File("/home/mosdev/kroot/kss/mosfire/gui/data/mscgui.log4j");
 
-	public static String MSCGUI_HELPSET_NAME = "mscguiHelp";
+	public static String MSCGUI_HELPSET_NAME = "magmaHelp";
 
 	//. GUI Title
-	public static String GUI_TITLE = "MOSFIRE Slit Configuration GUI";
+	public static String GUI_TITLE = "MAGMA: The MOSFIRE Slit Configuration Tool";
 	public static String CALIBRATION_GUI_TITLE = "MOSFIRE Calibration Tool";
-	public static String GUI_ACRONYM = "MSCGUI";
+	public static String GUI_ACRONYM = "MAGMA";
 
 	//. flag for running in Engineering mode, enabling certain features. set at runtime.
 	public static boolean ENGINEERING_MODE = false;
@@ -43,14 +57,14 @@ public class MSCGUIParameters {
 	public static boolean USE_CLASSIC_MASCGEN = false;
 
 	//. location of upper left corner of dialog
-	public static Point POINT_MAINFRAME_LOCATION = new Point(100, 100);
+	public static Point POINT_MAINFRAME_LOCATION = new Point(10, 23);
 
 	//. default dialog sizes
-	public static Dimension DIM_MAINFRAME = new Dimension(1250, 1020);
+	public static Dimension DIM_MAINFRAME = new Dimension(1250, 992);
 	public static Dimension DIM_TABLE_SLIT_LIST = new Dimension(150,150);
-	public static Dimension DIM_TABLE_TARGET_LIST = new Dimension(800,210);
-	public static Dimension DIM_CALIBRATION_GUI = new Dimension(350,450);
-	public static Dimension DIM_CALIBRATION_PROCESS_DIALOG = new Dimension(300,450);
+	public static Dimension DIM_TABLE_TARGET_LIST = new Dimension(800,190);
+	public static Dimension DIM_CALIBRATION_GUI = new Dimension(450,550);
+	public static Dimension DIM_CALIBRATION_PROCESS_DIALOG = new Dimension(800,450);
 
 	public static int WIDTH_SPECTRAL_CALIBRATION_FILTER_COLUMN = 25;
 	public static int WIDTH_MASCGEN_PANEL = 400;
@@ -75,6 +89,7 @@ public class MSCGUIParameters {
 	public static Color COLOR_OPEN_MASK_PANEL = new Color(50,200,50);
 	public static Color COLOR_LONG_SLIT_PANEL = new Color(200,200,50);
 	public static Color COLOR_MASCGEN_PANEL = Color.GRAY;
+	public static Color COLOR_HIGHLIGHTED_BUTTON = new Color(0x12cd12);
 
 	public static Color DEFAULT_COLOR_TARGET = Color.cyan;
 	public static int DEFAULT_COLOR_SCALE_MODE = ColorUtilities.FULL_INTENSITY_VISIBLE_SPECTRUM;
@@ -110,6 +125,8 @@ public class MSCGUIParameters {
 	public static int     DEFAULT_ANSWER_DUPLICATE_MASK_NAME_WARNING = JOptionPane.YES_OPTION;
 	public static boolean SHOW_WARNING_MINIMUM_ALIGN_STARS = true;
 	public static int     DEFAULT_ANSWER_MINIMUM_ALIGN_STARS = JOptionPane.YES_OPTION;
+	public static boolean SHOW_WARNING_SAVE_INVALID_SLITS = true;
+	public static int     DEFAULT_ANSWER_SAVE_INVALID_SLITS = JOptionPane.YES_OPTION;
 	public static boolean SHOW_WARNING_SETUP_MASK = true;
 	public static int     DEFAULT_ANSWER_SETUP_MASK = JOptionPane.YES_OPTION;
 	public static boolean SHOW_WARNING_EXECUTE_MASK = true;
@@ -120,10 +137,14 @@ public class MSCGUIParameters {
 	public static int     DEFAULT_ANSWER_WRITE_MSC_HTML = JOptionPane.YES_OPTION;
 	public static boolean SHOW_WARNING_UNUSED_SLITS = true;
 	public static int     DEFAULT_ANSWER_UNUSED_SLITS = JOptionPane.YES_OPTION;  
+	public static boolean SHOW_WARNING_MIRA = true;
+	public static int     DEFAULT_ANSWER_WARN_MIRA = JOptionPane.YES_OPTION;  
 
 	public static boolean SCRIPT_EXECUTE_SHOW_DIALOG = false;
-	public static File SCRIPT_EXECUTE_MASK = new java.io.File("/home/mosdev/kroot/kss/mosfire/scripts/control/mosfireExecuteMask");
-	public static File SCRIPT_CALIBRATE_MASKS = new java.io.File("/home/mosdev/kroot/kss/mosfire/scripts/control/mosfireTakeMaskCalibrationData");
+	public static File SCRIPT_EXECUTE_MASK = new java.io.File("/home/mosdev/kroot/kss/mosfire/scripts/inst/mosfireExecuteMask");
+	public static File SCRIPT_CALIBRATE_MASKS = new java.io.File("/home/mosdev/kroot/kss/mosfire/scripts/inst/mosfireTakeMaskCalibrationData");
+	public static File SCRIPT_ABORT = new java.io.File("/home/mosdev/kroot/kss/mosfire/scripts/inst/mosfireAbortCals");
+	public static File SCRIPT_MIRA = new java.io.File("/home/mosdev/kroot/kss/mosfire/scripts/mira/mosfireConfigCSUMiraSetup.csh");
 
 	public static int CSU_READINESS_STATES_ARRAY_OFFSET = 2;
 	public static String[] CSU_READINESS_STATES = {"-2: System Stopped", 
@@ -138,10 +159,29 @@ public class MSCGUIParameters {
 	public static Integer[] CSU_READINESS_STATES_OK_TO_SEND_TARGETS = {1,2};
 
 	public static int DEFAULT_ITIME_SEC_ARCS = 2;
-	public static int DEFAULT_ITIME_SEC_FLATS = 2;
+	public static int DEFAULT_ITIME_SEC_FLATS_Y = 17;
+	public static int DEFAULT_ITIME_SEC_FLATS_J = 11;
+	public static int DEFAULT_ITIME_SEC_FLATS_H = 11;
+	public static int DEFAULT_ITIME_SEC_FLATS_K = 11;
+	public static int DEFAULT_QUANTITY_ARCS = 3;
+	public static int DEFAULT_QUANTITY_FLATS_Y = 13;
+	public static int DEFAULT_QUANTITY_FLATS_J = 13;
+	public static int DEFAULT_QUANTITY_FLATS_H = 13;
+	public static int DEFAULT_QUANTITY_FLATS_K = 13;
+	public static boolean DEFAULT_LAMPS_OFF_FLATS_Y = false;
+	public static boolean DEFAULT_LAMPS_OFF_FLATS_J = false;
+	public static boolean DEFAULT_LAMPS_OFF_FLATS_H = false;
+	public static boolean DEFAULT_LAMPS_OFF_FLATS_K = true;
+	public static boolean DEFAULT_LAMPS_OFF_ARCS = false;
+	public static String DEFAULT_FLATLAMP = "mos";
+	
+	public static String MSC_LIST_EXTENSTION = "msclist";
+	public static String MSC_LIST_CONFIGS_TAG = "configs: ";
+	public static String MSC_LIST_NAME_TAG = "    - name: ";
+	public static String MSC_LIST_MSC_TAG =  "      file: ";
 
-
-
+	public static int SETUP_TIMEOUT_SECONDS = 30;
+	
 	//. //. //. //. //. //.  SERVER NAME  //. //. //. //. //.
 	public static String SERVER_NAME = "mosfire";
 	public static boolean ONLINE_MODE = false;

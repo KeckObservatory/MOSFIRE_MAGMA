@@ -99,7 +99,7 @@ CLEAN =
 
 # If this is a release point, override ancestor makefile's values.
 override SYSNAM = kss/mosfire/gui/mscgui/
-override VERNUM = 0.9.5
+override VERNUM = 1.0.2
 
 include $(KROOT)/etc/config.mk
 

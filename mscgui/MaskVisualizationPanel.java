@@ -26,12 +26,9 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -39,8 +36,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import edu.ucla.astro.irlab.mosfire.util.AstroObj;
 import edu.ucla.astro.irlab.mosfire.util.MascgenArguments;
@@ -52,7 +47,6 @@ import edu.ucla.astro.irlab.mosfire.util.ScienceSlit;
 import edu.ucla.astro.irlab.mosfire.util.SlitConfiguration;
 import edu.ucla.astro.irlab.util.ColorUtilities;
 import edu.ucla.astro.irlab.util.InvalidValueException;
-import edu.ucla.astro.irlab.util.gui.ColorScaleChooserPanel;
 import static edu.ucla.astro.irlab.mosfire.util.MosfireParameters.*;
 
 //. TODO compass rose
@@ -455,19 +449,6 @@ class MaskVisualizationPanel extends JPanel {
 	}
 	public void setAllObjects(Collection<AstroObj> objects) {
 		allObjects = new ArrayList<AstroObj>(objects);
-		RaDec center = config.getMascgenResult().getCenter();
-		double theta = Math.toRadians(config.getMascgenResult().getPositionAngle());
-		MascgenTransforms.raDecToXY(center);
-		//. make sure objX and objY are updated
-		double xOld, yOld;
-		for (AstroObj obj : allObjects) {
-			MascgenTransforms.astroObjRaDecToXY(obj, config.getMascgenResult().getCenter());
-			xOld = obj.getWcsX() - center.getXCoordinate();
-			yOld = obj.getWcsY() - center.getYCoordinate();
-			obj.setObjX(xOld * Math.cos(theta) - yOld * Math.sin(theta));
-			obj.setObjY(xOld * Math.sin(theta) + yOld * Math.cos(theta));
-			obj.updateDitherRows(config.getMascgenArgs().getDitherSpace());
-		}
 	}
 
 	class SpectraDrawComponent extends JComponent {
@@ -1067,10 +1048,14 @@ class MaskVisualizationPanel extends JPanel {
 					slit.lineTo(x[index], y[index]);
 				}
 				slit.closePath();
-				if (pos.getTarget().isInValidSlit()) {
-					g2.setColor(Color.BLACK);
+				if (config.getMaskName().equals("OPEN")) {
+					g2.setColor(MosfireParameters.COLOR_SLIT);
 				} else {
-					g2.setColor(Color.RED);
+					if (pos.getTarget().isInValidSlit()) {
+						g2.setColor(Color.BLACK);
+					} else {
+						g2.setColor(Color.RED);
+					}
 				}
 				g2.fill(slit);
 

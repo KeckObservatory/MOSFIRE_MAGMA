@@ -31,6 +31,8 @@ public class MascgenOutputsPanel extends JPanel {
 	private JButton outputDirBrowseButton = new JButton("Browse...");
 	private JLabel mascgenParamsLabel = new JLabel("Mascgen Params:");
 	private JTextField mascgenParamsField = new JTextField();
+	private JLabel allTargetsLabel = new JLabel("All Targets:");
+	private JTextField allTargetsField = new JTextField();
 	private JLabel maskTargetsLabel = new JLabel("Mask Targets:");
 	private JTextField maskTargetsField = new JTextField();
 	private JLabel mscFileLabel = new JLabel("MSC:");
@@ -119,6 +121,11 @@ public class MascgenOutputsPanel extends JPanel {
 		mascgenOutputParamsPanel.add(mascgenParamsField, new GridBagConstraints(1,row,1,1,1.0,0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, defaultInsets, 0,0));
 		row++;
+		mascgenOutputParamsPanel.add(allTargetsLabel, new GridBagConstraints(0,row,1,1,0.0,0.0, GridBagConstraints.EAST,
+				GridBagConstraints.NONE, defaultInsets, 0,0));
+		mascgenOutputParamsPanel.add(allTargetsField, new GridBagConstraints(1,row,1,1,1.0,0.0, GridBagConstraints.CENTER,
+				GridBagConstraints.HORIZONTAL, defaultInsets, 0,0));
+		row++;
 		mascgenOutputParamsPanel.add(maskTargetsLabel, new GridBagConstraints(0,row,1,1,0.0,0.0, GridBagConstraints.EAST,
 				GridBagConstraints.NONE, defaultInsets, 0,0));
 		mascgenOutputParamsPanel.add(maskTargetsField, new GridBagConstraints(1,row,1,1,1.0,0.0, GridBagConstraints.CENTER,
@@ -174,6 +181,7 @@ public class MascgenOutputsPanel extends JPanel {
 		}
 		if (automaticOutputButton.isSelected()) {
 			mascgenParamsField.setText(maskName+".param");
+			allTargetsField.setText(maskName+"_orig.coords");
 			maskTargetsField.setText(maskName+".coords");
 			mscFileField.setText(maskName+".xml");
 			maskScriptField.setText(maskName+"_BarPositions.csh");
@@ -190,6 +198,7 @@ public class MascgenOutputsPanel extends JPanel {
 		outputRootDirValueLabel.setText(args.getOutputDirectory());
 		outputDirField.setText(args.getOutputSubdirectory());
 		mascgenParamsField.setText(args.getOutputMascgenParams());
+		allTargetsField.setText(args.getOutputAllTargets());
 		maskTargetsField.setText(args.getOutputMaskTargets());
 		mscFileField.setText(args.getOutputMSC());
 		maskScriptField.setText(args.getOutputMaskScript());
@@ -202,6 +211,7 @@ public class MascgenOutputsPanel extends JPanel {
 	private void toggleAutomaticOutputFormatting(boolean state) {
 		mascgenParamsField.setEditable(!state);
 		maskTargetsField.setEditable(!state);
+		allTargetsField.setEditable(!state);
 		mscFileField.setEditable(!state);
 		maskScriptField.setEditable(!state);
 		alignMaskScriptField.setEditable(!state);
@@ -225,6 +235,7 @@ public class MascgenOutputsPanel extends JPanel {
 		args.setOutputSubdirectoryMaskName(autoOutputDirButton.isSelected());
 		args.setAutonameOutputFiles(automaticOutputButton.isSelected());
 		args.setOutputMascgenParams(mascgenParamsField.getText().trim());
+		args.setOutputAllTargets(allTargetsField.getText().trim());
 		args.setOutputMaskTargets(maskTargetsField.getText().trim());
 		args.setOutputMSC(mscFileField.getText().trim());
 		args.setOutputMaskScript(maskScriptField.getText().trim());
