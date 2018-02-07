@@ -53,7 +53,7 @@ JFLAGS = -d $(MOSFIRE_CLASSES)
 # note that  JDK_CLASSES  incorporates the  JVERSION , so there is no need
 # to make an additional modification here, if  JVERSION  is modified above.
 # Add colon-separated directories to point to other required jar and class files
-CLASSPATH = $(RELDIR)/classes/:$(MOSFIRE_CLASSES):$(RELDIR)/classes/jdom.jar:$(RELDIR)/classes/kjava.jar:$(RELDIR)/classes/log4j.jar:$(RELDIR)/classes/fits.jar
+override CLASSPATH = $(RELDIR)/classes/:$(MOSFIRE_CLASSES):$(RELDIR)/classes/jdom.jar:$(RELDIR)/classes/kjava.jar:$(RELDIR)/classes/log4j.jar:$(RELDIR)/classes/fits.jar
 
 # file suffix types to add to jar files besides class files (e.g. jpg png )
 # (optional)
@@ -99,7 +99,7 @@ CLEAN =
 
 # If this is a release point, override ancestor makefile's values.
 override SYSNAM = kss/mosfire/gui/mscgui/
-override VERNUM = 1.0.2
+override VERNUM = 1.1.0
 
 include $(KROOT)/etc/config.mk
 

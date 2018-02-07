@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
@@ -676,7 +677,10 @@ class MaskVisualizationPanel extends JPanel {
 					g2.fill(marker);	
 				}
 			}
-
+			//////////////////////////////////////////////////////////////////
+			// Part of MAGMA UPGRADE item M7 by Ji Man Sohn, UCLA 2016-2017 //
+			//////////////////////////////////////////////////////////////////
+			drawCompas(g2, guiSize, Color.darkGray);
 		}		
 
 		public void paint(Graphics g){
@@ -1165,6 +1169,10 @@ class MaskVisualizationPanel extends JPanel {
 					g2.drawString(maxPriorityString, (float)(guiSize - width), (float)(scaleTopY - 10));
 				}
 			}
+			//////////////////////////////////////////////////////////////////
+			// Part of MAGMA UPGRADE item M7 by Ji Man Sohn, UCLA 2016-2017 //
+			//////////////////////////////////////////////////////////////////
+			drawCompas(g2, guiSize, Color.darkGray);
 		}
 				
 		// Returns a JPEG-ready mask image 		
@@ -1347,5 +1355,76 @@ class MaskVisualizationPanel extends JPanel {
 
 		MaskVisualizationPanel window = new MaskVisualizationPanel();
 		window.setVisible(true);
+	}
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M7 by Ji Man Sohn, UCLA 2016-2017 //
+	//////////////////////////////////////////////////////////////////
+	/**
+	 * This method will draw compass on top left corner of Graphics2D g2.
+	 * the size of this compass will be determined by the size of the gui.
+	 * baseColor is the color of the compass except the north and south.
+	 */
+	public void drawCompas(Graphics2D g2, double guisize, Color baseColor){
+		// Determining some basic properties
+		g2.setColor(baseColor);
+		double radius = guisize/24;
+		double thickness = radius/20;
+		double center = radius*7/6;
+		
+		// Drawing circular frame
+		Ellipse2D compassOut = new Ellipse2D.Double(radius/6-thickness, radius/6-thickness, (radius+thickness)*2, (radius+thickness)*2);
+		Ellipse2D compassIn = new Ellipse2D.Double(radius/6, radius/6, radius*2, radius*2);
+		Area compassFrame = new Area(compassOut);
+		compassFrame.subtract(new Area(compassIn));
+		g2.fill(compassFrame);
+		g2.draw(compassFrame);
+		
+		// Angle of this compass to point
+		double angle = Math.toRadians(90-config.getMascgenResult().getPositionAngle());
+		double delta = Math.toRadians(45);
+		double starRadius = 0;
+		// A point in each of north/south direction for the purpose of red/blue gradient
+		Point north = new Point((int)(radius*0.05*Math.cos(angle) + center),(int)(center - radius*0.05*Math.sin(angle)));
+		Point south = new Point((int)(radius*0.05*Math.cos(angle-delta*4) + center),(int)(center - radius*0.05*Math.sin(angle-delta*4)));
+		
+		// Diagonal 4 point star
+		Polygon starS = new Polygon();
+		for( int ii = 0; ii<8; ii++) {
+			if(ii%2 == 0){
+				starRadius =radius *0.20;
+			}else {
+				starRadius = radius *0.70;
+			}
+			starS.addPoint((int)(starRadius*Math.cos(angle+delta*ii) + center),(int)(center - starRadius*Math.sin(angle+delta*ii)));
+		}
+		g2.fill(starS);
+		g2.draw(starS);
+		
+		// "Horizontal" cross
+		Polygon cross = new Polygon();
+		for( int ii = 0; ii<4; ii++) {
+			if(ii%2 == 0){
+				starRadius =radius *0.20; 
+			}else {
+				starRadius = radius *0.85;
+			}
+			cross.addPoint((int)(starRadius*Math.cos(angle+delta*ii*2) + center),(int)(center - starRadius*Math.sin(angle+delta*ii*2)));
+		}
+		g2.fill(cross);
+		g2.draw(cross);
+		
+		// North South
+		Polygon ns = new Polygon();
+		for( int ii = 0; ii<4; ii++) {
+			if(ii%2 == 0){
+				starRadius =radius; 
+			}else {
+				starRadius = radius *0.20;
+			}
+			ns.addPoint((int)(starRadius*Math.cos(angle+delta*ii*2) + center),(int)(center - starRadius*Math.sin(angle+delta*ii*2)));
+		}
+		g2.setPaint(new GradientPaint(north, Color.red, south, Color.blue));
+		g2.fill(ns);
+		g2.draw(ns);
 	}
 }

@@ -40,6 +40,14 @@
 
 package edu.ucla.astro.irlab.mosfire.mscgui;
 
+import static edu.ucla.astro.irlab.mosfire.util.MosfireParameters.CSU_FP_RADIUS;
+import static edu.ucla.astro.irlab.mosfire.util.MosfireParameters.CSU_HEIGHT;
+import static edu.ucla.astro.irlab.mosfire.util.MosfireParameters.CSU_NUMBER_OF_BAR_PAIRS;
+import static edu.ucla.astro.irlab.mosfire.util.MosfireParameters.CSU_WIDTH;
+import static edu.ucla.astro.irlab.mosfire.util.MosfireParameters.STAR_EDGE_DISTANCE;
+
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -52,7 +60,10 @@ import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
@@ -61,13 +72,17 @@ import nom.tam.fits.FitsException;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
+import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
+
 import edu.hawaii.keck.kjava.KJavaException;
 import edu.ucla.astro.irlab.mosfire.util.AstroObj;
 import edu.ucla.astro.irlab.mosfire.util.MascgenArgumentException;
 import edu.ucla.astro.irlab.mosfire.util.MascgenArguments;
 import edu.ucla.astro.irlab.mosfire.util.MascgenResult;
+import edu.ucla.astro.irlab.mosfire.util.MascgenTransforms;
 import edu.ucla.astro.irlab.mosfire.util.MechanicalSlit;
 import edu.ucla.astro.irlab.mosfire.util.MosfireParameters;
+import edu.ucla.astro.irlab.mosfire.util.RaDec;
 import edu.ucla.astro.irlab.mosfire.util.SlitConfiguration;
 import edu.ucla.astro.irlab.mosfire.util.SlitPosition;
 import edu.ucla.astro.irlab.mosfire.util.TargetListFormatException;
@@ -222,7 +237,6 @@ public class MSCGUIModel extends GenericModel implements PropertyChangeListener 
   	mascgenThread = new MascgenRunThread(args);
   	mascgenThread.start();
   }
-
   /**
    * Start MASCGEN with specified arguments.
    * Normally, this function is called by the MascgenRunThread inner class.
@@ -240,6 +254,11 @@ public class MSCGUIModel extends GenericModel implements PropertyChangeListener 
    * @param  args                      MascgenArguments object that specifies parameters for MASCGEN 
    * @throws MascgenArgumentException  if MASCGEN cannot be run using <code>args</code>
    */
+  	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M6 by Ji Man Sohn, UCLA 2016-2017 //
+	// * This method is heavily modified to keep set number of top  //
+	//	 configurations. please refer to comment starts with JMS    //
+	//////////////////////////////////////////////////////////////////
   public void runMascgen(MascgenArguments args) throws MascgenArgumentException {
 		try {
 			//. read in target list
@@ -253,30 +272,54 @@ public class MSCGUIModel extends GenericModel implements PropertyChangeListener 
 				astroObjArrayList.remove(0);
 			}
 			
-			//. run mascgen
-	  	MascgenResult result = mascgen.run(astroObjArrayList, args, mascgenListener);
-
-	  	//. if valid result found, construct SlitConfiguration from result
-	  	//. add configuration to list of opened configs, and set as current
-	  	if (result.getAstroObjects().length > 0) {
-	  		SlitConfiguration newConfig = SlitConfiguration.generateSlitConfiguration(args, result, mascgenReassignUnusedSlits);
-	  		newConfig.setOriginalTargetSet(astroObjArrayList);
-	  		newConfig.updateOriginalAstroObjects();
-	  		addSlitConfiguration(newConfig);
-	  		setCurrentSlitConfiguration(newConfig);
-	  	} else {
-	  		//. otherwise, throw exception with reason why result wasn't found (if not enough alignment stars)
-	  		if (result.getLegalAlignmentStars().length < args.getMinimumAlignmentStars()) {
-	  			if (result.getLegalAlignmentStars().length == 0) {
-		  			throw new MascgenArgumentException("Cannot find solution with "+args.getMinimumAlignmentStars()+" alignment stars. No valid alignment stars found.");
-	  			} else {
-	  				throw new MascgenArgumentException("Cannot find solution with "+args.getMinimumAlignmentStars()+" alignment stars.  Max of "+result.getLegalAlignmentStars().length+" stars found at "+result.getCenter().toStringWithUnits()+", pa="+result.getPositionAngle()+".");
-	  			}
-	  		} else {
-	  			throw new MascgenArgumentException("No valid configuration found.  Alignment stars were found, but no objects.");
-	  		}
+		//. run mascgen
+	  	List<MascgenResult> resultList = mascgen.run(astroObjArrayList, args, mascgenListener);
+	  	int index=1;
+	  	for(MascgenResult result : resultList){
+	  		//. if valid result found, construct SlitConfiguration from result
+		  	//. add configuration to list of opened configs, and set as current
+		  	if (result.getAstroObjects().length > 0) {
+		  		//JMS : Copy the arguments to avoid future alteration
+		  		SlitConfiguration newConfig = SlitConfiguration.generateSlitConfiguration(args, result, mascgenReassignUnusedSlits);
+		  		newConfig.setOriginalTargetSet(astroObjArrayList);
+		  		newConfig.updateOriginalAstroObjects();
+		  		//TEST PURPOSE : JMS
+		  		int count = 1;
+		  		for (AstroObj obj : astroObjArrayList){
+		  			System.out.printf("%3d\t%10s\t%+5f\t%+3d\t%+3d\t%+5f\t%+5f\n", count, obj.getObjName(), obj.getObjPriority(),obj.getMinRow(), obj.getMaxRow(),obj.getObjX(),obj.getObjY());
+		  			count++;
+		  		}
+		  		newConfig.verifyObjectAvoidance();
+		  		//TEST PURPOSE : JMS
+		  		System.out.println("\n\nAvoid\n\n");
+		  		count = 1;
+		  		for (AstroObj obj : newConfig.getAvoidTargetList()){
+		  			System.out.printf("%3d\t%10s\t%+5f\t%+3d\t%+3d\t%+5f\t%+5f\n", count, obj.getObjName(), obj.getObjPriority(),obj.getMinRow(), obj.getMaxRow(),obj.getObjX(),obj.getObjY());
+		  			count++;
+		  		}
+		  		newConfig.setMaskName(args.getMaskName()+index);
+		  		addSlitConfiguration(newConfig);
+		  		setCurrentSlitConfiguration(newConfig);
+		  		ArrayList<AstroObj> tempList = new ArrayList<AstroObj>();
+		  		for(AstroObj obj : astroObjArrayList){
+		  			tempList.add(obj.getCleanAstroObj());
+				}
+		  		astroObjArrayList = tempList;
+		  		
+		  	} else {
+		  		//. otherwise, throw exception with reason why result wasn't found (if not enough alignment stars)
+		  		if (result.getLegalAlignmentStars().length < args.getMinimumAlignmentStars()) {
+		  			if (result.getLegalAlignmentStars().length == 0) {
+			  			throw new MascgenArgumentException("Cannot find solution with "+args.getMinimumAlignmentStars()+" alignment stars. No valid alignment stars found.");
+		  			} else {
+		  				throw new MascgenArgumentException("Cannot find solution with "+args.getMinimumAlignmentStars()+" alignment stars.  Max of "+result.getLegalAlignmentStars().length+" stars found at "+result.getCenter().toStringWithUnits()+", pa="+result.getPositionAngle()+".");
+		  			}
+		  		} else {
+		  			throw new MascgenArgumentException("No valid configuration found.  Alignment stars were found, but no objects.");
+		  		}
+		  	}
+		  	index++;
 	  	}
-
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
 			throw new MascgenArgumentException("Error parsing target list: " + ex.getMessage());
@@ -290,8 +333,8 @@ public class MSCGUIModel extends GenericModel implements PropertyChangeListener 
 			ex.printStackTrace();
 			throw new MascgenArgumentException("Error parsing target list: " + ex.getMessage());
 		}
+		setCurrentSlitConfigurationIndex(getSlitConfigurationIndex(args.getMaskName()+1));
   }
-
   /**
    * Construct a new Long Slit configuration, add it to list of opened configurations, and set as current.
    * 
@@ -584,6 +627,11 @@ public class MSCGUIModel extends GenericModel implements PropertyChangeListener 
   	currentSlitConfiguration.writeCoordsFile();
   	currentSlitConfiguration.writeOrigCoordsFile();
   	currentSlitConfiguration.writeSlitConfiguration(MSCGUIParameters.MSC_VERSION);
+  	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M4 by Ji Man Sohn, UCLA 2016-2017 //
+	//////////////////////////////////////////////////////////////////
+  	currentSlitConfiguration.writeExcessCoordsFile();
+  	
   	if (writeHTML) {
   		currentSlitConfiguration.writeSlitConfigurationHTML();
   	}
@@ -1175,13 +1223,28 @@ public class MSCGUIModel extends GenericModel implements PropertyChangeListener 
 		} else {
 			//. otherwise, get index from mechnanical list
 			int ii=0;
-			for (MechanicalSlit slit : currentSlitConfiguration.getMechanicalSlitList()) {
-				if (slit.getTarget().getObjName().equals(obj.getObjName())) {
-					setActiveRow(ii);
-					return;
+			///////////////////////////////////////////////////////////////////
+			// Part of MAGMA UPGRADE item m3 by Ji Man Sohn, UCLA 2016-2017  //
+			// * if active row already has the obj to be set active, return  // 
+			if(currentSlitConfiguration.getMechanicalSlitList().get(activeRow).getTarget().equals(obj)){
+				return;
+			}else {
+				for (MechanicalSlit slit : currentSlitConfiguration.getMechanicalSlitList()) {
+					if (slit.getTarget().getObjName().equals(obj.getObjName())) {
+						setActiveRow(ii);
+						return;
+					}
+					ii++;
 				}
-				ii++;
 			}
+			//			for (MechanicalSlit slit : currentSlitConfiguration.getMechanicalSlitList()) {
+			//				if (slit.getTarget().getObjName().equals(obj.getObjName())) {
+			//					setActiveRow(ii);
+			//					return;
+			//				}
+			//				ii++;
+			//			}
+			///////////////////////////////////////////////////////////////////
 		}
 	}
 	
@@ -1705,4 +1768,310 @@ public class MSCGUIModel extends GenericModel implements PropertyChangeListener 
 		}
 		
 	}
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M6 by Ji Man Sohn, UCLA 2016-2017 //
+	public void setNumTopConfigs(int num){
+		mascgen.setNumTopConfigs(num);
+	}
+	//////////////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M3 by Ji Man Sohn, UCLA 2016-2017 //
+	public void wholeFieldOffsetInX(double offset, boolean realign) throws OffsetException {
+		MascgenArguments args = currentSlitConfiguration.getMascgenArgs();
+		
+		//Clone the result while setting newCenter to the result
+		MascgenResult result = currentSlitConfiguration.getMascgenResult();
+		MascgenResult newResult = new MascgenResult();
+		
+		RaDec newCenter = getOffsetCenter(result, offset);
+		MascgenTransforms.raDecToXY(newCenter);
+		
+		newResult.setCenter(newCenter);
+		newResult.setPositionAngle(result.getPositionAngle());
+		
+		//Check the astro bjects against the offset to see if they fall within boundary;
+		double theta = Math.toRadians(newResult.getPositionAngle());
+		double xOld, yOld;
+		double objX, objY;
+		double circleOriginX = CSU_WIDTH / 2;
+		double circleOriginY = CSU_HEIGHT / 2;
+		RaDec objectRaDec;
+		Point2D.Double objWcs;
+		
+		// Checking alignment stars
+		
+		ArrayList<AstroObj> starsStaying = new ArrayList<AstroObj>();
+		ArrayList<AstroObj> starsLeaving = new ArrayList<AstroObj>();
+		
+		int row;
+		for  (MechanicalSlit slit : currentSlitConfiguration.getAlignSlitList()) {
+			AstroObj obj = slit.getTarget().getCleanAstroObj();
+			// Transform the entire astroObjArray into the CSU plane by subtracting
+			// the center coordinate from each AstroObj's xCoordinate and
+			// yCoordinate and putting these into the ObjX and ObjY.
+			objectRaDec = new RaDec((int)Math.floor(obj.getRaHour()), (int)Math.floor(obj.getRaMin()), obj.getRaSec(), obj.getDecDeg(), obj.getDecMin(), obj.getDecSec());
+			objWcs = MascgenTransforms.getWcsFromRaDec(objectRaDec, newCenter.getYCoordinate());
+			
+			xOld = objWcs.x - newCenter.getXCoordinate();
+			yOld = objWcs.y - newCenter.getYCoordinate();
+			
+			// Rotate the objects in the CSU plane by the Position Angle.
+			/** Objects were read in with coordinate system origin at center of
+			 *  CSU field. The optimize method runs with the coordinate system
+			 *  origin in the lower left. So, simply add CSU_WIDTH / 2 to the x
+			 *  position and CSU_HEIGHT / 2 to the y position of each object. **/
+			objX = xOld * Math.cos(theta) - yOld * Math.sin(theta) + CSU_WIDTH / 2;
+			objY = xOld * Math.sin(theta) + yOld * Math.cos(theta) + CSU_HEIGHT / 2;
+			
+			/** Crop out all AstroObjs in the astroObjArray that lie outside the
+			 * focal plane circle, defined by CSU_FP_RADIUS centered at the origin
+			 * (CSU_WDITH / 2, CSU_HEIGHT / 2). **/
+			/** Crop out all AstroObjs in the astroObjArray that have x coordinate
+			 * positions outside of the CSU Plane. **/
+			if (Point.distance(objX, objY, circleOriginX, circleOriginY) < CSU_FP_RADIUS) {
+
+				if ((objX > STAR_EDGE_DISTANCE) && (objX < CSU_WIDTH-STAR_EDGE_DISTANCE)) {
+
+					if ((objY > STAR_EDGE_DISTANCE) && (objY < CSU_HEIGHT-STAR_EDGE_DISTANCE)){ 
+
+						
+						/** Assign each Star AstroObj to its correct StarRowRegion.
+						 * Then crop out the objects that do not fall into a RowRegion. **/
+						row=AstroObj.getRow(objY, args.getAlignmentStarEdgeBuffer());
+
+						if (row != -1) {
+							obj.setObjRR(row);
+							starsStaying.add(obj);
+						} else {
+							starsLeaving.add(obj);
+						}
+					}else {
+						starsLeaving.add(obj);
+					}
+				}else {
+					starsLeaving.add(obj);
+				}
+			}else {
+				starsLeaving.add(obj);
+			}                      
+		}
+		
+		if(starsLeaving.size() > 0 && starsStaying.size()<args.getMinimumAlignmentStars()){
+			if(realign){	
+				
+				List<AstroObj> ogAllList = currentSlitConfiguration.getOriginalTargetList();
+				HashSet<AstroObj> ogStarSet = new HashSet<AstroObj>();
+				for(AstroObj obj : ogAllList) {
+					if(obj.getObjPriority() < 0) {
+						ogStarSet.add(obj.getCleanAstroObj());
+					}
+				}
+				
+				ArrayList<AstroObj> legalStars = new ArrayList<AstroObj>();
+				for (AstroObj obj : mascgen.findLegalStars(ogStarSet, newCenter, result.getPositionAngle())){
+					legalStars.add(obj);
+				}
+				System.out.println("staying : " +legalStars);
+				if(legalStars.size()<args.getMinimumAlignmentStars()){
+					throw new OffsetException("Re-assigning alignment stars failed.\n" +
+							"Try adding additional alignment stars.");
+				} else {
+					starsStaying = legalStars;
+				}
+			}else {
+				String message = "Offset Aborted. Following align star(s) will be lost.\n";
+				for(AstroObj obj: starsLeaving) {
+					message += obj.getObjName() + "\n";
+				}
+				message += "Number of valid alignment stars (" +starsStaying.size() 
+				+ ") will be less than minimum required (" + args.getMinimumAlignmentStars() +")\n" +
+				"If you wish Mascgen to find a new set of alignment stars, select Ok.\n";
+				throw new OffsetException(message);
+			}
+		}
+		
+		// Checking slit targets
+		
+		ArrayList<AstroObj> targetsStaying = new ArrayList<AstroObj>();
+		ArrayList<AstroObj> targetsLeaving = new ArrayList<AstroObj>();
+		double tempPriority = 0;
+		
+		double ditherSpace = args.getDitherSpace();
+		double minLegalX = 60 * (args.getxCenter() - args.getxRange() / 2);
+		double maxLegalX = 60 * (args.getxCenter() + args.getxRange() / 2);
+		
+		for (MechanicalSlit slit : currentSlitConfiguration.getMechanicalSlitList()) {
+			
+			AstroObj obj = slit.getTarget().getCleanAstroObj();
+			
+			objectRaDec = new RaDec((int)Math.floor(obj.getRaHour()), (int)Math.floor(obj.getRaMin()), obj.getRaSec(), obj.getDecDeg(), obj.getDecMin(), obj.getDecSec());
+			objWcs = MascgenTransforms.getWcsFromRaDec(objectRaDec, newCenter.getYCoordinate());
+			
+			// Transform the entire astroObjArray into the CSU plane by subtracting
+			// the center coordinate from each AstroObj's xCoordinate and 
+			// yCoordinate and putting these into the ObjX and ObjY.
+			xOld = objWcs.x - newCenter.getXCoordinate();
+			yOld = objWcs.y - newCenter.getYCoordinate();
+
+			// Rotate the objects in the CSU plane by the Position Angle.
+			/* Objects were read in with coordinate system origin at center of 
+			 *  CSU field. The optimize method runs with the coordinate system 
+			 *  origin in the lower left. So, simply add CSU_WIDTH / 2 to the x  
+			 *  position and CSU_HEIGHT / 2 to the y position of each object. 
+			 */
+			objX = (xOld * Math.cos(theta) - yOld * Math.sin(theta));
+			objY = (xOld * Math.sin(theta) + yOld * Math.cos(theta));
+
+			/* Crop out all AstroObjs in the astroObjArray that 
+			 * 
+			 * a) lie outside the  focal plane circle, defined by CSU_FP_RADIUS 
+			 *    centered at the origin (CSU_WDITH / 2, CSU_HEIGHT / 2). 
+			 * b) have x coordinate positions outside of the legal range. 
+			 * c) have x coordinate positions outside of the CSU Plane. 
+			 */
+			//. need to check object stays in slit during dither
+			//.
+			//. coordinate system origin is at center, and goes positive to the left, and up
+			//. with slits tilted 4 degrees counter-clockwise
+			double maxY = objY + ditherSpace * Math.cos(MosfireParameters.CSU_SLIT_TILT_ANGLE_RADIANS);
+			double maxX = objX + ditherSpace * Math.sin(MosfireParameters.CSU_SLIT_TILT_ANGLE_RADIANS);
+			double minY = objY - ditherSpace * Math.cos(MosfireParameters.CSU_SLIT_TILT_ANGLE_RADIANS);
+			double minX = objX - ditherSpace * Math.sin(MosfireParameters.CSU_SLIT_TILT_ANGLE_RADIANS);
+			if ((Point.distance(minX, minY, 0, 0) < CSU_FP_RADIUS) && 
+					(Point.distance(maxX, maxY, 0, 0) < CSU_FP_RADIUS) && 
+					(minX >= minLegalX) && (maxX <= maxLegalX) && (minX > -CSU_WIDTH/2.) && (maxX < CSU_WIDTH/2.) &&
+					(minY > -CSU_HEIGHT/2.) && (maxY < CSU_HEIGHT/2.)) {
+
+				obj.setObjX(objX);
+				obj.setObjY(objY);
+
+				//. determine what rows the object occupies during full dither
+				int minRow = (int)Math.floor((minY + CSU_HEIGHT / 2. - MosfireParameters.OVERLAP)/ MosfireParameters.CSU_ROW_HEIGHT);
+				int maxRow = (int)Math.floor((maxY + CSU_HEIGHT / 2. + MosfireParameters.OVERLAP)/ MosfireParameters.CSU_ROW_HEIGHT);
+				obj.setMinRow(minRow);
+				obj.setMaxRow(maxRow);
+				
+				//. make sure object stays within mask boundaries during dither
+				//. this should be ensured by check above, but better to 
+				//. include this just be sure, to avoid IndexOutOfBoundsException
+				if ((minRow >= 0) &&  (maxRow < CSU_NUMBER_OF_BAR_PAIRS)) {
+					targetsStaying.add(obj);
+					tempPriority += obj.getObjPriority();
+				}else {
+					if(!targetsLeaving.contains(obj)){
+						targetsLeaving.add(obj);
+					}
+				}
+			}else {
+				if(!targetsLeaving.contains(obj)){
+					targetsLeaving.add(obj);
+				}			
+			}
+		}
+		
+		
+		
+		newResult.setAstroObjects(targetsStaying.toArray(new AstroObj[targetsStaying.size()]));
+		newResult.setLegalAlignmentStars(starsStaying.toArray(new AstroObj[starsStaying.size()]));
+		newResult.setTotalPriority(tempPriority);
+		
+		SlitConfiguration newConfig = SlitConfiguration.generateSlitConfiguration(args, newResult, mascgenReassignUnusedSlits);
+		if(realign && newConfig.getAlignmentStarCount()<args.getMinimumAlignmentStars()) {
+			throw new OffsetException("Re-assigning alignment stars failed.");
+		}
+		newConfig.setOriginalTargetSet(currentSlitConfiguration.getOriginalTargetList());
+  		newConfig.updateOriginalAstroObjects();
+  		newConfig.setMaskName(currentSlitConfiguration.getMaskName());
+  		addSlitConfiguration(newConfig);
+  		setCurrentSlitConfiguration(newConfig);
+  		if(targetsLeaving.size()>0){
+			String message = "Following objects was lost during the offset.\nPlease select a different target.\n";
+			for(AstroObj obj: targetsLeaving) {
+				message += obj.getObjName() + "\n";
+			}
+			throw new OffsetException(message);
+		}
+	}
+	
+	private RaDec getOffsetCenter(MascgenResult result, double offset) {
+		result = currentSlitConfiguration.getMascgenResult();
+		
+		RaDec oldCenter = result.getCenter();
+		double positionAngleRadian = Math.toRadians(result.getPositionAngle());
+		double raOffset = offset * Math.cos(positionAngleRadian) / 15;
+		double decOffset = offset * Math.sin(positionAngleRadian);
+		double newRaSec = oldCenter.getRaSec()+raOffset;
+		int newRaMin = oldCenter.getRaMin();
+		int newRaHour = oldCenter.getRaHour();
+		double newDecSec = oldCenter.getDecSec() + decOffset;
+		double newDecMin = oldCenter.getDecMin();
+		double newDecDeg = oldCenter.getDecDeg();
+		
+		
+		if(newRaSec >= 60){
+			newRaSec -= 60;
+			newRaMin = oldCenter.getRaMin()+1;
+			if(newRaMin >= 60){
+				newRaMin -= 60;
+				newRaHour +=1;
+				if(newRaHour >= 24){
+					newRaHour -= 24;
+				}
+			}	
+		}
+		
+		if(newDecSec >= 60){
+			newDecSec -= 60;
+			newDecMin = oldCenter.getDecMin()+1;
+			if(newDecMin >= 60){
+				newDecMin -= 60;
+				newDecDeg +=1;
+				if(newDecDeg >= 24){
+					newDecDeg -= 24;
+				}
+			}	
+		}
+		
+		return new RaDec(newRaHour, newRaMin, newRaSec, newDecDeg, newDecMin, newDecSec);
+	}
+	//////////////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M1 by Ji Man Sohn, UCLA 2016-2017 //
+	public void slitNudge(double offset) {
+		// Grab current configuration along with some current values
+		SlitConfiguration config = currentSlitConfiguration;
+		int row = activeRow;
+		ArrayList<MechanicalSlit> ogSlitList = config.getMechanicalSlitList();
+		String targetName = ogSlitList.get(row).getTargetName();
+		
+		// Prepare arraylist to store all the adjacent slits with same target, and add current slit.
+		ArrayList<MechanicalSlit> nudgeSlitList = new ArrayList<MechanicalSlit>();
+		nudgeSlitList.add(ogSlitList.get(row));
+	
+		// Visiting adjacent slits to check if the targets are are same. If they are, add to nudge slit list.
+		int tempRow = row - 1;
+		while (tempRow >=0 && ogSlitList.get(tempRow).getTargetName().equals(targetName)){
+			System.out.println(tempRow);
+			nudgeSlitList.add(ogSlitList.get(tempRow));
+			tempRow --;
+		}
+		tempRow = row +1;
+		while (tempRow < CSU_NUMBER_OF_BAR_PAIRS && ogSlitList.get(tempRow).getTargetName().equals(targetName)){
+			System.out.println(tempRow);
+			nudgeSlitList.add(ogSlitList.get(tempRow));
+			tempRow ++;
+		}
+		// Run through nudge slits and nudge.
+		for(MechanicalSlit slit : nudgeSlitList) {
+			double center = slit.getCenterPosition();
+			slit.setCenterPosition(center-offset);
+		}
+		
+		// Update the configuration.
+		addSlitConfiguration(config);
+  		setCurrentSlitConfiguration(config);	
+	}
+	//////////////////////////////////////////////////////////////////
 }

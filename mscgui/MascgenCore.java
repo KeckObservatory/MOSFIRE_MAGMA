@@ -12,6 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import edu.ucla.astro.irlab.mosfire.util.MosfireParameters;
 import edu.ucla.astro.irlab.mosfire.util.RaDec;
 import edu.ucla.astro.irlab.mosfire.util.TargetListFormatException;
 import edu.ucla.astro.irlab.mosfire.util.TargetListParser;
+import edu.ucla.astro.irlab.util.TopPriorityList;
 
 public class MascgenCore {
 	private static final Logger logger = Logger.getLogger(MascgenCore.class);
@@ -49,7 +51,11 @@ public class MascgenCore {
 	private ArrayList<Node> bestNodes = new ArrayList<Node>(CSU_NUMBER_OF_BAR_PAIRS);
 	private ArrayList<ArrayList<Node>> allNodes = new ArrayList<ArrayList<Node>>(CSU_NUMBER_OF_BAR_PAIRS);
 
-	
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M6 by Ji Man Sohn, UCLA 2016-2017 //
+	private int numTopConfigs = 0;
+	//////////////////////////////////////////////////////////////////
+
   /** Additional Functions 
    * @throws TargetListFormatException 
    * @throws IOException **/
@@ -618,11 +624,354 @@ public class MascgenCore {
 	}
 
 
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M6 by Ji Man Sohn, UCLA 2016-2017 //
+	// * This method is heavily modified to keep set number of top  //
+	//	 configurations. please refer to comment starts with JMS    //
+	//////////////////////////////////////////////////////////////////
+//	public MascgenResult run(List<AstroObj> targets, MascgenArguments args, PropertyChangeListener propertyChangeListener) throws MascgenArgumentException {
+	public List<MascgenResult> run(List<AstroObj> targets, MascgenArguments args, PropertyChangeListener propertyChangeListener) throws MascgenArgumentException {
 
-	public MascgenResult run(List<AstroObj> targets, MascgenArguments args, PropertyChangeListener propertyChangeListener) throws MascgenArgumentException {
 		HashSet<AstroObj> allObjects = new HashSet<AstroObj>();
 		HashSet<AstroObj> allStars = new HashSet<AstroObj>();
+		// JMS: Top Priority list to keep set number of configs with top priorities.
+		TopPriorityList<MascgenResult> topResults = new TopPriorityList<MascgenResult>(numTopConfigs, new Comparator<MascgenResult>(){
+			@Override
+			public int compare(MascgenResult o1, MascgenResult o2) {
+				if(o1.getTotalPriority()>o2.getTotalPriority()){
+					return 1;
+				}else if (o1.getTotalPriority()==o2.getTotalPriority()){
+					return 0;
+				}
+				return -1;
+			}
+		});
+		// JMS: two fields to keep track of temporary min priorities of
+		//		results in the topResult list.
+		double temporaryMinPriority = 0.0;
+		double temporaryMaxPriority = 0.0;
+		
+		abort=false;
+		
+		setMascgenOptimalRunNumber(0, propertyChangeListener);
+		setMascgenRunNumber(0, propertyChangeListener);
+		setMascgenTotalPriority(0.0, propertyChangeListener);
+		setMascgenTotalRuns(0, propertyChangeListener);
+		setMascgenStatus("Validating arguments", propertyChangeListener);
+		
+		//. verify argument values
 
+		if (args.getxSteps() < 0) {
+			throw new MascgenArgumentException("Inavlid X Steps <"+args.getxSteps()+">. Must be non-negative");
+		}
+		if (args.getySteps() < 0) {
+			throw new MascgenArgumentException("Inavlid Y Steps <"+args.getySteps()+">. Must be non-negative");
+		}
+		if (args.getPaSteps() < 0) {
+			throw new MascgenArgumentException("Inavlid PA Steps <"+args.getPaSteps()+">. Must be non-negative");
+		}
+
+		java.text.DecimalFormat thirdPlace = new java.text.DecimalFormat("0.000");
+
+		if ((args.getxRange() <= 0) || (args.getxRange() > CSU_WIDTH/60)) {
+			throw new MascgenArgumentException("Invalid X Range <"+args.getxRange()+">. Must be between 0 and the CSU Width (" + thirdPlace.format(CSU_WIDTH / 60) + " arcmin).");
+		}
+		if ((args.getxCenter() <= -CSU_WIDTH / 120) || (args.getxCenter() >= CSU_WIDTH/120)) {
+			throw new MascgenArgumentException("Invalid X Center <"+args.getxCenter()+">. Must be between +/- half of CSU Width (+/- " + thirdPlace.format(CSU_WIDTH / 120) + " arcmin).");
+		}
+		if ((args.getSlitWidth() <= 0) || (args.getSlitWidth() > CSU_WIDTH)) {
+			throw new MascgenArgumentException("Invalid slit width <"+args.getSlitWidth()+">. Must be positive and less than CSU Width ("+thirdPlace.format(CSU_WIDTH) + " arcsec).");
+		}
+		if ((args.getDitherSpace() < 0) || (args.getDitherSpace() > CSU_HEIGHT/2)) {
+			throw new MascgenArgumentException("Invalid dither space <"+args.getDitherSpace()+">. Must be non-negative and less than half of the CSU height ("+thirdPlace.format(CSU_HEIGHT / 2) + " arcsec).");
+		}
+		//. validate RA/DEC and PA center
+		//. validate Star edge buffer
+
+		//. minLegalX > 0? maxLegalX < CSU_WIDTH?  -> allow it, since objects not in CSU are cropped off later
+		// Calculate some CSU parameters which are more useful.
+//		minLegalX = 60 * (args.getxCenter() - args.getxRange() / 2) + CSU_WIDTH / 2;
+//		maxLegalX = 60 * (args.getxCenter() + args.getxRange() / 2) + CSU_WIDTH / 2;
+		minLegalX = 60 * (args.getxCenter() - args.getxRange() / 2);
+		maxLegalX = 60 * (args.getxCenter() + args.getxRange() / 2);
+		xCenter = args.getxCenter();
+		ditherSpace = args.getDitherSpace();
+		alignmentStarEdgeBuffer = args.getAlignmentStarEdgeBuffer();
+		
+
+		setMascgenTotalRuns((args.getxSteps()*2+1)*(args.getySteps()*2+1)*(args.getPaSteps()*2+1), propertyChangeListener);
+
+
+		// Find the high and low coordinate extremes in the Input Object List.
+		// Also create the astroObject that contains the information about the alignment stars
+		// Alignment stars are designated by having a negative priority
+
+		int highObjRaHour = (int) targets.get(0).getRaHour();
+		int lowObjRaHour = highObjRaHour;
+		int highObjDecDeg = (int) targets.get(0).getDecDeg();
+		int lowObjDecDeg = highObjDecDeg;
+
+		for (AstroObj currentObj : targets) {
+			if ((int) currentObj.getRaHour() > highObjRaHour) {
+				highObjRaHour = (int) (currentObj.getRaHour());
+			}
+			if ((int) currentObj.getRaHour() < lowObjRaHour) {
+				lowObjRaHour = (int) (currentObj.getRaHour());
+			}
+			if ((int) currentObj.getDecDeg() > highObjDecDeg) {
+				highObjDecDeg = (int) (currentObj.getDecDeg());
+			}
+			if ((int) currentObj.getDecDeg() < lowObjDecDeg) {
+				lowObjDecDeg = (int) (currentObj.getDecDeg());
+			}
+			if (currentObj.getObjPriority() < 0.0) {
+				allStars.add(currentObj);
+			} else {
+				allObjects.add(currentObj);
+			}
+		}
+		
+		// If the Input Object List covers more than one hour in RA or more
+		// than one degree in Dec, throw exception
+		if (highObjRaHour - lowObjRaHour > 1) {
+			if ((highObjRaHour != 23) || (lowObjRaHour != 0)) {
+				//. reject this, since if there is wrap, 
+				//. it won't work right.
+				throw new MascgenArgumentException("The input object list spans more than one hour in RA.  Reduce object list.");
+			}
+		}
+		if (highObjDecDeg - lowObjDecDeg > 1) {
+			throw new MascgenArgumentException("The input object list spans more than one degree in Dec.  Reduce object list.");
+		}
+
+		// Determine if the RA coordinates wrap around the zero line.
+		boolean raCoordWrap = false;
+		if ((highObjRaHour == 23) && (lowObjRaHour == 0)) {
+			for (AstroObj obj : targets) {
+				if (obj.getRaHour() == 0) {
+					obj.setRaHour(12);
+					raCoordWrap = true;
+				}
+				if (obj.getRaHour() == 23) {
+					obj.setRaHour(11);
+					raCoordWrap = true;
+				}
+			}
+		}
+
+
+		// Instantiate a new RaDec variable to store the input field center.
+		RaDec fieldCenter, printedFieldCenter;
+		if (args.usesCenterOfPriority()) {
+			fieldCenter = calculateCenterOfPriority(allObjects);
+			args.setCenterPosition(fieldCenter);
+		} else {
+			fieldCenter = args.getCenterPosition();
+		}
+		
+		//. we want to print the field center in the mascgen status panel
+		//. but it needs to be corrected for ra coord wrap if it was done.
+		printedFieldCenter = fieldCenter.clone();
+		
+		if (raCoordWrap) {
+			MascgenTransforms.fixRaCoordWrap(printedFieldCenter);
+		}
+		setMascgenStatus("Starting Center Position: "+printedFieldCenter.toStringWithUnits(), propertyChangeListener);
+		
+		// Compute the wcs x and y coordinates of the field center from Ra/Dec.
+		MascgenTransforms.raDecToXY(fieldCenter);
+		double totalPriority = 0;
+		int runNum = 0; // Keep track of the number of optimization runs.
+		RaDec tempFieldCenter = new RaDec();
+		RaDec savedFieldCenter;
+		double tempPA;
+
+		// Now, run the three-level for loop over position angle, field center
+		// y coordinate, and field center x coordinate. Count the total number
+		// of loops (runNum).
+		setMascgenStatus("Finding optimal mask configuration.", propertyChangeListener);
+
+		//. run loop so that it starts at center, and works its way out.
+		boolean configurationFound = false;
+		// JMS: To avoid overwriting of MascgenResult, next two lines are moved down
+		//		so it will be created right when a config with top priority is found.
+		//MascgenResult result = new MascgenResult();
+		//result.setCoordWrap(raCoordWrap);
+		int xStepFactor = 0;
+		int yStepFactor = 0;
+		int paStepFactor = 0;
+		for (int j = -args.getxSteps(); j < args.getxSteps() + 1; j++) {
+			tempFieldCenter.setXCoordinate(fieldCenter.getXCoordinate() - xStepFactor * args.getxStepSize());
+			xStepFactor = getNextFactor(xStepFactor);
+			yStepFactor = 0;
+			for (int k = -args.getySteps(); k < args.getySteps() + 1; k++){
+				tempFieldCenter.setYCoordinate(fieldCenter.getYCoordinate() -	yStepFactor * args.getyStepSize());
+				yStepFactor = getNextFactor(yStepFactor);
+				for (AstroObj obj : allObjects) {
+					MascgenTransforms.astroObjRaDecToXY(obj, tempFieldCenter);
+				}
+				paStepFactor = 0;
+				for (int m = -args.getPaSteps(); m < args.getPaSteps() + 1; m++) {
+					// JMS: To avoid overwriting of MascgenResult, next two lines are moved from above
+					MascgenResult result = new MascgenResult();
+					result.setCoordWrap(raCoordWrap);
+					if (abort) {
+						j=args.getxSteps();
+						k=args.getySteps();
+						m=args.getPaSteps();
+					}
+					setMascgenRunNumber(runNum+1, propertyChangeListener);
+
+					double tempTotalPriority;
+					tempPA = args.getCenterPA() + paStepFactor * args.getPaStepSize();
+					paStepFactor = getNextFactor(paStepFactor);
+
+					int legalNum=0;
+					AstroObj[] tempStarAOArray = new AstroObj[0];
+					if (args.getMinimumAlignmentStars() > 0) {
+						tempStarAOArray = findLegalStars(allStars, 
+								tempFieldCenter, tempPA); 
+						// Now we use a hash set to find the number of unique legal stars
+						// When you add an non-unique element to a hash set, nothing actually
+						// gets added to the set
+						HashSet<Integer> testHash = new HashSet<Integer>();
+
+						for(AstroObj obj: tempStarAOArray){
+							testHash.add(obj.getObjRR());
+						}
+
+						legalNum = testHash.size();
+					}
+					runNum++;
+
+					if (legalNum >= args.getMinimumAlignmentStars()) {
+						Node bestTopNode = optimize(allObjects, tempFieldCenter, tempPA);
+						tempTotalPriority =  totalScore(bestTopNode);
+
+						// JMS: this clause will be used to add new result with priority
+						//		greater than minimum priority in the list.
+						if (tempTotalPriority > temporaryMinPriority) {
+							// JMS: If tempTotal is greater than max in the list, update temporaryMaxPriority
+							if(tempTotalPriority>temporaryMaxPriority && topResults.peekFirst()!=null){
+								temporaryMaxPriority = tempTotalPriority;
+								setMascgenTotalPriority(temporaryMaxPriority, propertyChangeListener);
+							}
+							
+							setMascgenOptimalRunNumber(runNum, propertyChangeListener);
+							System.out.println(totalPriority + "\t" + tempTotalPriority + "\t"+ temporaryMaxPriority+ "\t"+ temporaryMinPriority);
+							setMascgenStatus("-----------------------------------------------", propertyChangeListener);
+							String status = "New optimum configuration " +
+							"found on run number " + runNum + " with priority of " + tempTotalPriority +
+							". \nThe best total priority so far is " + temporaryMaxPriority + ".";
+							System.out.println(status);
+							setMascgenStatus(status, propertyChangeListener);
+							MascgenTransforms.xyToRaDec(tempFieldCenter);
+							savedFieldCenter = tempFieldCenter.clone();
+							if (raCoordWrap) {
+								MascgenTransforms.fixRaCoordWrap(savedFieldCenter);
+							}
+							status = "Center = "+savedFieldCenter.toStringWithUnits()+", PA = "+tempPA+".";
+							System.out.println(status);
+							printNodePath(bestTopNode);
+							setMascgenStatus(status, propertyChangeListener);
+							configurationFound = true;
+							result.setCenter(savedFieldCenter);
+							result.setPositionAngle(tempPA);
+							result.setTotalPriority(tempTotalPriority);
+							result.setAstroObjects(createObjectArrayFromTopNode(bestTopNode));
+							result.setLegalAlignmentStars(tempStarAOArray);
+							// JMS: add the result to the list, and clean out the astro objects used.
+							//		This cleaning is to not interfere with already established result.
+							topResults.add(result);
+							HashSet<AstroObj> tempAllObj = new HashSet<AstroObj>();
+							for(AstroObj obj: allObjects){
+								tempAllObj.add(obj.getCleanAstroObj());
+							}
+							HashSet<AstroObj> tempAllStar = new HashSet<AstroObj>();
+							for(AstroObj obj: allStars){
+								tempAllStar.add(obj.getCleanAstroObj());
+							}
+							allObjects = tempAllObj;
+							allStars = tempAllStar;
+							temporaryMinPriority = topResults.peekLast().getTotalPriority();
+							
+						} else if (tempTotalPriority == temporaryMinPriority) {
+							setMascgenStatus("-----------------------------------------------", propertyChangeListener);
+							String status = "Configuration with same priority " + temporaryMinPriority +
+							" found on run " + runNum  + "." +
+							"\nPrevious configuration being used.";
+							System.out.println(status);
+							setMascgenStatus(status, propertyChangeListener);
+							MascgenTransforms.xyToRaDec(tempFieldCenter);
+							savedFieldCenter = tempFieldCenter.clone();
+							if (raCoordWrap) {
+								MascgenTransforms.fixRaCoordWrap(savedFieldCenter);
+							}
+							status = "Center = "+savedFieldCenter.toStringWithUnits()+", PA = "+tempPA+".";
+							System.out.println(status);
+							if (result.getAstroObjects().length == 0) {
+								result.setLegalAlignmentStars(tempStarAOArray);
+								result.setCenter(savedFieldCenter);
+								result.setPositionAngle(tempPA);
+							}
+							setMascgenStatus(status, propertyChangeListener);
+						}
+					} else {
+						if (result.getAstroObjects().length == 0) {
+							if (legalNum > result.getLegalAlignmentStars().length) {
+								result.setLegalAlignmentStars(tempStarAOArray);
+								MascgenTransforms.xyToRaDec(tempFieldCenter);
+								savedFieldCenter = tempFieldCenter.clone();
+								if (raCoordWrap) {
+									MascgenTransforms.fixRaCoordWrap(savedFieldCenter);
+								}
+								result.setCenter(savedFieldCenter);
+								result.setPositionAngle(tempPA);
+							}
+						}
+					}
+				}	
+			}
+		}
+
+		setMascgenStatus("-----------------------------------------------", propertyChangeListener);
+		setMascgenStatus(" --------------------------------------------- ", propertyChangeListener);
+		setMascgenStatus("*** OPTIMIZATION COMPLETE. ***", propertyChangeListener);
+		if (configurationFound) {
+			setMascgenStatus("*** CONFIGURATION FOUND ***", propertyChangeListener);
+			if (raCoordWrap) {
+				
+				for (AstroObj obj : targets) {
+					MascgenTransforms.fixRaCoordWrap(obj);
+				}
+/*
+ 				for (AstroObj obj : result.getAstroObjects()) {
+ 
+					fixRaCoordWrap(obj);
+				}
+				for (AstroObj obj : result.getLegalAlignmentStars()) {
+					fixRaCoordWrap(obj);
+				}
+				*/
+			}
+		} else {
+			setMascgenStatus("*** NO VALID CONFIGURATION FOUND. ***", propertyChangeListener);
+		}
+		setMascgenStatus(" --------------------------------------------- ", propertyChangeListener);
+		setMascgenStatus("-----------------------------------------------", propertyChangeListener);
+		// JMS : This method now returns list of mascgen result rather than single result.
+		// return result;
+		return topResults.asList();
+	}
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M6 by Ji Man Sohn, UCLA 2016-2017 //
+	// * This method is the run method before the update.			//
+	//////////////////////////////////////////////////////////////////
+	public MascgenResult runOld(List<AstroObj> targets, MascgenArguments args, PropertyChangeListener propertyChangeListener) throws MascgenArgumentException {
+
+		HashSet<AstroObj> allObjects = new HashSet<AstroObj>();
+		HashSet<AstroObj> allStars = new HashSet<AstroObj>();
+		
 		abort=false;
 		
 		setMascgenOptimalRunNumber(0, propertyChangeListener);
@@ -817,7 +1166,6 @@ public class MascgenCore {
 
 
 						if (tempTotalPriority > totalPriority) {
-							totalPriority = tempTotalPriority;
 							setMascgenTotalPriority(totalPriority, propertyChangeListener);
 							setMascgenOptimalRunNumber(runNum, propertyChangeListener);
 							setMascgenStatus("-----------------------------------------------", propertyChangeListener);
@@ -908,7 +1256,7 @@ public class MascgenCore {
 
 		return result;
 	}
-	public MascgenResult runOld(List<AstroObj> targets, MascgenArguments args, PropertyChangeListener propertyChangeListener) throws MascgenArgumentException {
+	public MascgenResult runOldOld(List<AstroObj> targets, MascgenArguments args, PropertyChangeListener propertyChangeListener) throws MascgenArgumentException {
 		HashSet<AstroObj> allObjects = new HashSet<AstroObj>();
 		HashSet<AstroObj> allStars = new HashSet<AstroObj>();
 
@@ -1318,5 +1666,12 @@ public class MascgenCore {
 			}
 		}
 	}
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M6 by Ji Man Sohn, UCLA 2016-2017 //
+	public void setNumTopConfigs(int num){
+		numTopConfigs = num;
+		System.out.println("Got it! : " + numTopConfigs);
+	}
+	//////////////////////////////////////////////////////////////////
 
 }

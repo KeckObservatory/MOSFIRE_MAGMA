@@ -48,6 +48,11 @@ public class MascgenOutputsPanel extends JPanel {
 	private JLabel starListLabel = new JLabel("Keck Star List:");
 	private JTextField starListField = new JTextField();
 	private String maskName = MSCGUIParameters.DEFAULT_MASK_NAME;
+	//////////////////////////////////////////////////////////////////
+	// Part of MAGMA UPGRADE item M4 by Ji Man Sohn, UCLA 2016-2017 //
+	private JLabel excessTargetsLabel = new JLabel("Excess Targets:");
+	private JTextField excessTargetsField = new JTextField();
+	//////////////////////////////////////////////////////////////////
 
 	private JFileChooser outputRootDirFC = new JFileChooser();
 
@@ -131,6 +136,14 @@ public class MascgenOutputsPanel extends JPanel {
 		mascgenOutputParamsPanel.add(maskTargetsField, new GridBagConstraints(1,row,1,1,1.0,0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, defaultInsets, 0,0));
 		row++;
+		//////////////////////////////////////////////////////////////////
+		// Part of MAGMA UPGRADE item M4 by Ji Man Sohn, UCLA 2016-2017 //
+		mascgenOutputParamsPanel.add(excessTargetsLabel, new GridBagConstraints(0,row,1,1,0.0,0.0, GridBagConstraints.EAST,
+				GridBagConstraints.NONE, defaultInsets, 0,0));
+		mascgenOutputParamsPanel.add(excessTargetsField, new GridBagConstraints(1,row,1,1,1.0,0.0, GridBagConstraints.CENTER,
+				GridBagConstraints.HORIZONTAL, defaultInsets, 0,0));
+		row++;
+		//////////////////////////////////////////////////////////////////
 		mascgenOutputParamsPanel.add(mscFileLabel, new GridBagConstraints(0,row,1,1,0.0,0.0, GridBagConstraints.EAST,
 				GridBagConstraints.NONE, defaultInsets, 0,0));
 		mascgenOutputParamsPanel.add(mscFileField, new GridBagConstraints(1,row,1,1,1.0,0.0, GridBagConstraints.CENTER,
@@ -183,6 +196,10 @@ public class MascgenOutputsPanel extends JPanel {
 			mascgenParamsField.setText(maskName+".param");
 			allTargetsField.setText(maskName+"_orig.coords");
 			maskTargetsField.setText(maskName+".coords");
+			//////////////////////////////////////////////////////////////////
+			// Part of MAGMA UPGRADE item M4 by Ji Man Sohn, UCLA 2016-2017 //
+			excessTargetsField.setText(maskName+"_excess.coords");
+			//////////////////////////////////////////////////////////////////
 			mscFileField.setText(maskName+".xml");
 			maskScriptField.setText(maskName+"_BarPositions.csh");
 			alignMaskScriptField.setText(maskName+"_AlignmentBarPositions.csh");
@@ -200,6 +217,10 @@ public class MascgenOutputsPanel extends JPanel {
 		mascgenParamsField.setText(args.getOutputMascgenParams());
 		allTargetsField.setText(args.getOutputAllTargets());
 		maskTargetsField.setText(args.getOutputMaskTargets());
+		//////////////////////////////////////////////////////////////////
+		// Part of MAGMA UPGRADE item M4 by Ji Man Sohn, UCLA 2016-2017 //
+		excessTargetsField.setText(args.getOutputExcessTargets());
+		//////////////////////////////////////////////////////////////////
 		mscFileField.setText(args.getOutputMSC());
 		maskScriptField.setText(args.getOutputMaskScript());
 		alignMaskScriptField.setText(args.getOutputAlignMaskScript());
@@ -212,6 +233,10 @@ public class MascgenOutputsPanel extends JPanel {
 		mascgenParamsField.setEditable(!state);
 		maskTargetsField.setEditable(!state);
 		allTargetsField.setEditable(!state);
+		//////////////////////////////////////////////////////////////////
+		// Part of MAGMA UPGRADE item M4 by Ji Man Sohn, UCLA 2016-2017 //
+		excessTargetsField.setEditable(!state);
+		//////////////////////////////////////////////////////////////////
 		mscFileField.setEditable(!state);
 		maskScriptField.setEditable(!state);
 		alignMaskScriptField.setEditable(!state);
@@ -236,6 +261,10 @@ public class MascgenOutputsPanel extends JPanel {
 		args.setAutonameOutputFiles(automaticOutputButton.isSelected());
 		args.setOutputMascgenParams(mascgenParamsField.getText().trim());
 		args.setOutputAllTargets(allTargetsField.getText().trim());
+		//////////////////////////////////////////////////////////////////
+		// Part of MAGMA UPGRADE item M4 by Ji Man Sohn, UCLA 2016-2017 //
+		args.setOutputExcessTargets(excessTargetsField.getText().trim());
+		//////////////////////////////////////////////////////////////////
 		args.setOutputMaskTargets(maskTargetsField.getText().trim());
 		args.setOutputMSC(mscFileField.getText().trim());
 		args.setOutputMaskScript(maskScriptField.getText().trim());
